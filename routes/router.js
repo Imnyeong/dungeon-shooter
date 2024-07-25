@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sql = require('../sql');
 
-router.get("/getUsers", function(req, res, next) {
+router.get("/getuserlist", function(req, res, next) {
   sql.getUsers(req, res, next);
 });
 

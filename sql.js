@@ -23,7 +23,7 @@ module.exports =
 
             return res.send(JSON.stringify({
                 code : 200,
-                message : results
+                message : JSON.stringify(results)
             }));
         });
     },
@@ -31,8 +31,10 @@ module.exports =
     addUser : function(req, res, next)
     {
         var query = util.format("INSERT INTO %s(ID, PW, Nickname) Values (?, ?, ?);", userTable);
-        var values = [req.body.id, req.body.pw, req.body.nickname];
-      
+
+        var data = req.body[0];
+        var values = [data.ID, data.PW, data.Nickname];
+        
         con.query(query, values, function(error, results, fields)
           {
             if(error)
