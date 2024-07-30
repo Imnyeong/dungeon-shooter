@@ -11,7 +11,7 @@ namespace DungeonShooter
     public class WebRequestManager : MonoBehaviour
     {
         public static WebRequestManager instance;
-
+        private const string url = "";
 
         private void Awake()
         {
