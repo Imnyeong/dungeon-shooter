@@ -14,14 +14,24 @@ public class WebSocketManager : MonoBehaviour
             instance = this;
         }
     }
+    private void Start()
+    {
+        Connect();
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            ws.Send("Space");
+        }
+    }
     public void Connect()
     {
         ws.Connect();
 
         ws.OnMessage += (sender, e) =>
         {
-            //Debug.Log("주소 :  " + ((WebSocket)sender).Url + ", 데이터 : " + e.Data);
-            //ToDo: GameManager에서 처리하도록
+            Debug.Log("주소 :  " + ((WebSocket)sender).Url + ", 데이터 : " + e.Data);
         };
     }
 }
