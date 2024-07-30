@@ -22,7 +22,7 @@ namespace DungeonShooter
         {
             Debug.Log("Check Point");
             GameObject character = Instantiate(characterPrefab, dungeon.transform);
-            character.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            character.transform.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
         }
         void Update()
         {

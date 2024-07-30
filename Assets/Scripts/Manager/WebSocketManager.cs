@@ -24,10 +24,10 @@ namespace DungeonShooter
         }
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    ws.Send("Space");
-            //}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ws.Send("Space");
+            }
             CheckAction();
         }
         private void CheckAction()
@@ -48,10 +48,10 @@ namespace DungeonShooter
             {
                 Debug.Log("주소 :  " + ((WebSocket)sender).Url + ", 데이터 : " + e.Data);
                 
-                //if (e.Data == "Space")
-                //{
-                //    actions.Enqueue(() => GameManager.instance.SpawnCharacter());
-                //}
+                if (e.Data == "Space")
+                {
+                    actions.Enqueue(() => GameManager.instance.SpawnCharacter());
+                }
             };
         }
 
