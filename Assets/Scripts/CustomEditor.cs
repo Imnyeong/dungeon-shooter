@@ -7,8 +7,9 @@ public class CustomEditor : EditorWindow
 { 
     public int mapSize;
     public int tileSize;
-    public GameObject baseTile;
-    public GameObject additionalTile;
+    public GameObject tile;
+    public GameObject wall;
+
 
     [MenuItem("Custom/EditorWindow")]
     private static void Init()
@@ -22,13 +23,16 @@ public class CustomEditor : EditorWindow
         EditorGUILayout.LabelField("Map Editor", EditorStyles.boldLabel);
         mapSize = EditorGUILayout.IntField("Map Size", mapSize);
         tileSize = EditorGUILayout.IntField("Tile Size", tileSize);
-        baseTile = (GameObject)EditorGUILayout.ObjectField("Base Tile", baseTile, typeof(GameObject), true);
-        additionalTile = (GameObject)EditorGUILayout.ObjectField("Additional Tile", additionalTile, typeof(GameObject), true);
-        if (GUILayout.Button("Make Map")) { MakeMap(mapSize, baseTile, additionalTile); };
+        tile = (GameObject)EditorGUILayout.ObjectField("Tile", tile, typeof(GameObject), true);
+        if (GUILayout.Button("Make Map")) { MakeMap(mapSize, tile); };
+
+        EditorGUILayout.LabelField("Wall Editor", EditorStyles.boldLabel);
+        wall = (GameObject)EditorGUILayout.ObjectField("Wall", wall, typeof(GameObject), true);
+        if (GUILayout.Button("Make Wall")) { MakeWall(mapSize, wall); };
     }
-    private void MakeMap(int _mapSize, GameObject _baseTile, GameObject _additionalTile)
+    private void MakeMap(int _mapSize, GameObject _tile)
     {
-        GameObject dungeon = Instantiate(new GameObject("Dungeon"));
+        GameObject floor = new GameObject("Floor");
 
         int value = _mapSize / 2;
 
@@ -36,11 +40,59 @@ public class CustomEditor : EditorWindow
         {
             for(int z = value * -1; z <= value;)
             {
-                GameObject tile = Instantiate(_baseTile, dungeon.transform);
+                int random = Random.Range(0, 4);
+
+                GameObject tile = Instantiate(_tile, floor.transform);
+                tile.AddComponent<MeshCollider>();
                 tile.transform.localPosition = new Vector3(x, 0.0f, z);
+                tile.transform.localRotation = new Quaternion(0.0f, 90.0f * random, 0.0f, 0.0f);
+
                 z += tileSize;
             }
             x += tileSize;
+        }
+    }
+    private void MakeWall(int _mapSize, GameObject _tile)
+    {
+        GameObject wall = new GameObject("Wall");
+
+        int value = _mapSize / 2;
+        int side = (_mapSize / 2) + 2;
+
+        for (int x = 1; x <= 4; x++)
+        {
+            for (int z = value * -1; z <= value;)
+            {
+                GameObject tile = Instantiate(_tile, wall.transform);
+                tile.AddComponent<MeshCollider>();
+                switch(x)
+                {
+                    case 1:
+                        {
+                            tile.transform.localPosition = new Vector3(side, 0.0f, z);
+                            break;
+                        }
+                    case 2:
+                        {
+                            tile.transform.localPosition = new Vector3(z, 0.0f, side);
+                            break;
+                        }
+                    case 3:
+                        {
+                            tile.transform.localPosition = new Vector3(side * -1, 0.0f, z);
+                            break;
+                        }
+                    case 4:
+                        {
+                            tile.transform.localPosition = new Vector3(z, 0.0f, side * -1);
+                            break;
+                        }
+                }
+
+                tile.transform.localRotation = Quaternion.Euler(0.0f, 90.0f * (x % 2), 0.0f);
+
+                z += tileSize;
+            }
         }
     }
 }
