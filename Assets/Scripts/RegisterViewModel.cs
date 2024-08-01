@@ -12,6 +12,7 @@ namespace DungeonShooter
         [SerializeField] private InputField inputNickname;
 
         [SerializeField] private Button btnRegister;
+        [SerializeField] private Button btnLogin;
 
         [SerializeField] private ScrollRect scrollRect;
 
@@ -20,11 +21,33 @@ namespace DungeonShooter
         private void Start()
         {
             GetUserList();
-            
+
             btnRegister.onClick.AddListener(delegate
             {
                 AddUser(inputID.text, inputPW.text, inputNickname.text);
             });
+            btnLogin.onClick.AddListener(delegate
+            {
+                Login(inputID.text, inputPW.text);
+            });
+        }
+        public void Login(string _id, string _pw)
+        {
+            LoginData sendData = new LoginData
+            {
+                ID = _id,
+                PW = _pw
+            };
+
+            WebRequestManager.instance.Login(sendData, (response) => LoginSuccess(response));
+        }
+        public void LoginSuccess(WebRequestResponse _response)
+        {
+            if (_response.code == 400)
+                return;
+
+            UserData user = JsonConvert.DeserializeObject<UserData>(_response.message);
+            Debug.Log($"ID = {user.ID}, PW = {user.PW}, Nickname = {user.Nickname}, Win = {user.Win}, Lose = {user.Lose}");
         }
         public void AddUser(string _id, string _pw, string _nickname)
         {
@@ -35,18 +58,18 @@ namespace DungeonShooter
                 Nickname = _nickname
             };
 
-            List<UserData> sendList = new List<UserData>();
-            sendList.Add(sendData);
-
-            WebRequestManager.instance.AddUser(sendList);
+            WebRequestManager.instance.AddUser(sendData);
         }
         public void GetUserList()
         {
             WebRequestManager.instance.GetUserList((response) => ShowUserList(response));            
         }
-        public void ShowUserList (string _jsonstring)
+        public void ShowUserList (WebRequestResponse _response)
         {
-            List<UserData> userList = JsonConvert.DeserializeObject<List<UserData>>(_jsonstring);
+            if (_response.code == 400)
+                return;
+
+            List<UserData> userList = JsonConvert.DeserializeObject<List<UserData>>(_response.message);
             for (int i = 0; i < scrollRect.content.childCount; i++)
             {
                 Destroy(scrollRect.content.GetChild(i).gameObject);

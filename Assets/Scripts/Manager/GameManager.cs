@@ -8,7 +8,10 @@ namespace DungeonShooter
     {
         public static GameManager instance;
         public GameObject characterPrefab;
-        public GameObject dungeon;
+        public GameObject map;
+
+        public int currentPlayer;
+        public List<Character> players;
 
         private void Awake()
         {
@@ -18,15 +21,23 @@ namespace DungeonShooter
             }
         }
 
-        public void SpawnCharacter()
+        public void SpawnCharacter(int _id)
         {
-            Debug.Log("Check Point");
-            GameObject character = Instantiate(characterPrefab, dungeon.transform);
-            character.transform.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
+            GameObject character = Instantiate(characterPrefab, map.transform);
+            Character player = character.GetComponent<Character>();
+            player.SetInfo(_id);
+            players.Add(player);
         }
-        void Update()
-        {
 
+        public void MoveCharacter(string _data)
+        {
+            TransformPacket info = JsonUtility.FromJson<TransformPacket>(_data);
+            if (currentPlayer == info.id)
+                return;
+
+            Character player = players.Find(x => x.id == info.id);
+            player.transform.localPosition = new Vector3(info.posX, info.posY, info.posZ);
+            player.transform.localRotation = Quaternion.Euler(info.rotX, info.rotY, info.rotZ);
         }
     }
 }

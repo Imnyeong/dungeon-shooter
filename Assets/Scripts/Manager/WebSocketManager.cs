@@ -24,11 +24,19 @@ namespace DungeonShooter
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ws.Send("Space");
-            }
             CheckAction();
+            if(Input.GetKeyDown(KeyCode.O))
+            {
+                ws.Send("O");
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                ws.Send("P");
+            }
+        }
+        public void SendPacket(string _message)
+        {
+            ws.Send(_message);
         }
         private void CheckAction()
         {
@@ -46,11 +54,19 @@ namespace DungeonShooter
 
             ws.OnMessage += (sender, e) =>
             {
-                Debug.Log("林家 :  " + ((WebSocket)sender).Url + ", 单捞磐 : " + e.Data);
+                //Debug.Log("林家 :  " + ((WebSocket)sender).Url + ", 单捞磐 : " + e.Data);
                 
-                if (e.Data == "Space")
+                if (e.Data == "O")
                 {
-                    actions.Enqueue(() => GameManager.instance.SpawnCharacter());
+                    actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
+                }
+                else if(e.Data == "P")
+                {
+                    actions.Enqueue(() => GameManager.instance.SpawnCharacter(1));
+                }
+                else
+                {
+                    actions.Enqueue(() => GameManager.instance.MoveCharacter(e.Data));
                 }
             };
         }

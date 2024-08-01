@@ -20,12 +20,8 @@ namespace DungeonShooter
                 instance = this;
             }
         }
-        public class Response
-        {
-            public int code;
-            public string message;
-        }
-        IEnumerator GetRequest(string _uri, Action<string> _action = null)
+
+        IEnumerator GetRequest(string _uri, Action<WebRequestResponse> _action = null)
         {
             using (UnityWebRequest webRequest = UnityWebRequest.Get(_uri))
             {
@@ -33,11 +29,11 @@ namespace DungeonShooter
 
                 if(webRequest.result == UnityWebRequest.Result.Success)
                 {
-                    Debug.Log("Success Received: " + webRequest.result);
+                    Debug.Log("Success Received: " + webRequest.downloadHandler.text);
                     if (_action != null)
                     {
-                        Response response = JsonConvert.DeserializeObject<Response>(webRequest.downloadHandler.text);
-                        _action(response.message);
+                        WebRequestResponse response = JsonConvert.DeserializeObject<WebRequestResponse>(webRequest.downloadHandler.text);
+                        _action(response);
                     }
                 }
                 else
@@ -48,7 +44,7 @@ namespace DungeonShooter
         }
         IEnumerator PostRequest(string _uri, string _packet)
         {
-            using (UnityWebRequest webRequest = UnityWebRequest.Post(_uri, _packet))
+            using (UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(_uri, _packet))
             {
                 byte[] jsonToSend = new UTF8Encoding().GetBytes(_packet);
                 webRequest.uploadHandler = new UploadHandlerRaw(jsonToSend);
@@ -70,11 +66,19 @@ namespace DungeonShooter
         }
 
         #region User
-        public void GetUserList(Action<string> _action)
+        public void GetUserInfo(string _id, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(GetRequest($"{url}/getuserinfo/{_id}", _action));
+        }
+        public void GetUserList(Action<WebRequestResponse> _action)
         {
             StartCoroutine(GetRequest($"{url}/getuserlist", _action));
         }
-        public void AddUser(List<UserData> _data)
+        public void Login(LoginData _data, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(GetRequest($"{url}/login/{JsonConvert.SerializeObject(_data)}", _action));
+        }
+        public void AddUser(UserData _data)
         {
             StartCoroutine(PostRequest($"{url}/register", JsonConvert.SerializeObject(_data)));
         }
