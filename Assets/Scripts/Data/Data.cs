@@ -1,4 +1,6 @@
-﻿namespace DungeonShooter
+﻿using UnityEngine;
+
+namespace DungeonShooter
 {
     #region WebRequestPacket
     public class WebRequestResponse
@@ -23,17 +25,27 @@
     #endregion
 
     #region WebSocketPacket
+    public enum PacketType
+    {
+        Spawn,
+        Transform
+    }
+
+    public class WebSocketRequest
+    {
+        public PacketType packetType;
+        public string data;
+    }
+    public class WebSocketResponse
+    {
+        public PacketType packetType;
+        public string data;
+    }
     public class TransformPacket
     {
         public int id;
-
-        public float posX;
-        public float posY;
-        public float posZ;
-        public float rotX;
-        public float rotY;
-        public float rotZ;
+        public Vector3 position;
+        public Quaternion rotation;
     }
-
     #endregion
 }

@@ -27,11 +27,28 @@ namespace DungeonShooter
             CheckAction();
             if(Input.GetKeyDown(KeyCode.O))
             {
-                ws.Send("O");
+                WebSocketRequest request = new WebSocketRequest()
+                {
+                    packetType = PacketType.Spawn,
+                    data = "O"
+                };
+                ws.Send(JsonUtility.ToJson(request));
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
-                ws.Send("P");
+                WebSocketRequest request = new WebSocketRequest()
+                {
+                    packetType = PacketType.Spawn,
+                    data = "P"
+                };
+                ws.Send(JsonUtility.ToJson(request));
+            }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                if (GameManager.instance.currentPlayer == 0)
+                    GameManager.instance.currentPlayer = 1;
+                else if (GameManager.instance.currentPlayer == 1)
+                    GameManager.instance.currentPlayer = 0;
             }
         }
         public void SendPacket(string _message)
@@ -54,23 +71,22 @@ namespace DungeonShooter
 
             ws.OnMessage += (sender, e) =>
             {
-                //Debug.Log("주소 :  " + ((WebSocket)sender).Url + ", 데이터 : " + e.Data);
-                
-                if (e.Data == "O")
+                //Debug.Log("???? :  " + ((WebSocket)sender).Url + ", ?????? : " + e.Data);
+                WebSocketResponse response = JsonUtility.FromJson<WebSocketResponse>(e.Data);
+
+                if (response.packetType == PacketType.Transform)
+                {
+                    actions.Enqueue(() => GameManager.instance.MoveCharacter(response.data));
+                }
+                else if(response.packetType == PacketType.Spawn && response.data == "O")
                 {
                     actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
                 }
-                else if(e.Data == "P")
+                else if(response.packetType == PacketType.Spawn && response.data == "P")
                 {
                     actions.Enqueue(() => GameManager.instance.SpawnCharacter(1));
                 }
-                else
-                {
-                    actions.Enqueue(() => GameManager.instance.MoveCharacter(e.Data));
-                }
             };
         }
-
-
     }
 }

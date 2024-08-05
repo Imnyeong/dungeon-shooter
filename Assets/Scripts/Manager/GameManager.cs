@@ -25,6 +25,7 @@ namespace DungeonShooter
         {
             GameObject character = Instantiate(characterPrefab, map.transform);
             Character player = character.GetComponent<Character>();
+
             player.SetInfo(_id);
             players.Add(player);
         }
@@ -32,12 +33,12 @@ namespace DungeonShooter
         public void MoveCharacter(string _data)
         {
             TransformPacket info = JsonUtility.FromJson<TransformPacket>(_data);
+
             if (currentPlayer == info.id)
                 return;
 
             Character player = players.Find(x => x.id == info.id);
-            player.transform.localPosition = new Vector3(info.posX, info.posY, info.posZ);
-            player.transform.localRotation = Quaternion.Euler(info.rotX, info.rotY, info.rotZ);
+            player.TransformSync(info.position, info.rotation);
         }
     }
 }

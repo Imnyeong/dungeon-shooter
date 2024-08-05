@@ -28,24 +28,18 @@ namespace DungeonShooter
         {
             if (id != GameManager.instance.currentPlayer)
                 return;
-
+            //현재 id와 같은 플레이어만 조작
             GetAxisValues();
         }
         private void FixedUpdate()
         {
-            if (id != GameManager.instance.currentPlayer)
-                return;
-
             MouseRotate();
             Move();
         }
         private void LateUpdate()
         {
-            if (id != GameManager.instance.currentPlayer)
-                return;
-
-            if (moveX != 0 || moveZ != 0)
-                WebSocketSync();
+            if (moveX != 0 || moveZ != 0 || mouseX != 0)
+                SendPacket();
         }
         public void SetInfo(int _id)
         {
@@ -77,19 +71,25 @@ namespace DungeonShooter
             //characterCamera.transform.localRotation = Quaternion.Euler(mouseY, 0, 0);
             //transform.Rotate(0, mouseX * mouseSpeed, 0);
         }
-        private void WebSocketSync()
+        private void SendPacket()
         {
-            TransformPacket packet = new TransformPacket() 
+            TransformPacket packet = new TransformPacket()
             {
                 id = id,
-                posX = transform.localPosition.x,
-                posY = transform.localPosition.y,
-                posZ = transform.localPosition.z,
-                rotX = transform.eulerAngles.x,
-                rotY = transform.eulerAngles.y,
-                rotZ = transform.eulerAngles.z,
+                position = transform.localPosition,
+                rotation = transform.localRotation
             };
-            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(packet));
+            WebSocketRequest request = new WebSocketRequest()
+            {
+                packetType = PacketType.Transform,
+                data = JsonUtility.ToJson(packet)
+            };
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+        }
+        public void TransformSync(Vector3 _position, Quaternion _rotation)
+        {
+            transform.localPosition = _position;
+            transform.localRotation = _rotation;
         }
     }
 }
