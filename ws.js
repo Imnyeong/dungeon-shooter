@@ -9,6 +9,9 @@ wss.on('connection', (ws) =>
     ws.on('message', (message) => 
     {
         console.log(`Receiced message: ${message}`);
+        var packet = JSON.parse(message);
+        console.log(`Receiced packetType: ${packet.packetType}`);
+        console.log(`Receiced packetdata: ${packet.data}`);
 
         wss.clients.forEach(function each(client) {
             // 모든 클라이언트에 전송
