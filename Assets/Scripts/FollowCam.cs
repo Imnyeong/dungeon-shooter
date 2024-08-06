@@ -6,7 +6,7 @@ namespace DungeonShooter
 {
     public class FollowCam : MonoBehaviour
     {
-        public Transform character;
+        public Transform player;
 
         public float mouseX;
         public float mouseY;
@@ -14,12 +14,12 @@ namespace DungeonShooter
         public float mouseSpeed = 15.0f;
         public float maxY = 60.0f;
         public float minY = -20.0f;
-        public float camDistance = 4.0f;
-        public float camHeight = 2.0f;
+        public float camDistance = 3.0f;
+        public float camHeight = 3.0f;
 
         public void SetTarget(int _id)
         {
-            character = GameManager.instance.players.Find(x => x.id == _id).gameObject.transform;
+            player = GameManager.instance.players.Find(x => x.id == _id).gameObject.transform;
         }
         private void FixedUpdate()
         {
@@ -38,9 +38,9 @@ namespace DungeonShooter
         private void MoveCamera()
         {
             transform.eulerAngles = new Vector3(mouseY, mouseX, transform.rotation.z);
-            character.localRotation = Quaternion.Euler(0, mouseX, 0);
+            player.localRotation = Quaternion.Euler(0, mouseX, 0);
             transform.position =
-                new Vector3(character.position.x, character.position.y + camHeight, character.position.z) - transform.forward * camDistance;
+                new Vector3(player.position.x, player.position.y + camHeight, player.position.z) - transform.forward * camDistance;
         }
     }
 }

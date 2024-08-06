@@ -1552,14 +1552,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93b3b8f80432c843a9ef8527fadda36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  col: {fileID: 6453682119974024127}
+  hitCol: {fileID: 0}
+  bottomCol: {fileID: 0}
   rigid: {fileID: 7928061504141457708}
-  animator: {fileID: 3902444915027018504}
   id: 0
   hp: 0
-  moveSpeed: 10
-  moveX: 0
-  moveZ: 0
+  inputController: {fileID: 0}
+  animController: {fileID: 0}
 --- !u!1 &5633512716819005062
 GameObject:
   m_ObjectHideFlags: 0

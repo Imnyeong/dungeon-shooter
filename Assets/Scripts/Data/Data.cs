@@ -30,7 +30,13 @@ namespace DungeonShooter
         Spawn,
         Transform
     }
-
+    public enum AnimationType
+    {
+        Idle,
+        Move,
+        Back,
+        Jump
+    }
     public class WebSocketRequest
     {
         public PacketType packetType;

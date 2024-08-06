@@ -8,27 +8,13 @@ namespace DungeonShooter
     {
         public Collider col;
         public Rigidbody rigid;
-        public Animator animator;
 
         public int id;
         public int hp;
-        public float moveSpeed = 10.0f;
 
-        public float moveX;
-        public float moveZ;
+        public CharacterInput inputController;
+        public CharacterAnimation animController;
 
-        private void Update()
-        {
-            if (id != GameManager.instance.currentPlayer)
-                return;
-            GetAxisValues();
-        }
-        private void FixedUpdate()
-        {
-            if (id != GameManager.instance.currentPlayer)
-                return;
-            Move();
-        }
         private void LateUpdate()
         {
             if (id != GameManager.instance.currentPlayer)
@@ -38,16 +24,11 @@ namespace DungeonShooter
         public void SetInfo(int _id)
         {
             id = _id;
-        }
-        private void GetAxisValues()
-        {
-            moveX = Input.GetAxisRaw("Horizontal");
-            moveZ = Input.GetAxisRaw("Vertical");
-        }
-        private void Move()
-        {
-            transform.Translate(moveZ * Vector3.forward * Time.fixedDeltaTime * moveSpeed);
-            transform.Translate(moveX * Vector3.right * Time.fixedDeltaTime * moveSpeed);
+            if (GameManager.instance.currentPlayer == _id)
+            {
+                inputController = gameObject.AddComponent<CharacterInput>();
+            }
+            animController = gameObject.AddComponent<CharacterAnimation>();
         }
         private void SendPacket()
         {
