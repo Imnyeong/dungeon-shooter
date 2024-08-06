@@ -15804,7 +15804,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 5578227256160490785, guid: 379ef9a4d6b70ca458b11665778b6502, type: 3}
+  cameraPrefab: {fileID: 2339627990773436519, guid: afe2990c52a876a4d9897c8e8efb1fed, type: 3}
   map: {fileID: 495451979}
+  currentPlayer: 0
+  players: []
 --- !u!1 &671413711
 GameObject:
   m_ObjectHideFlags: 0
