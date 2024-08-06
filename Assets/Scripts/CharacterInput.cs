@@ -16,9 +16,8 @@ namespace DungeonShooter
         public float backSpeed = 5.0f;
 
         public bool isJump = false;
+        public bool isGround = true;
         public float jumpPower = 7.0f;
-        public float jumpCooldown = 1.5f;
-        public float checkJump;
 
         private void Start()
         {
@@ -31,24 +30,19 @@ namespace DungeonShooter
         private void FixedUpdate()
         {
             Move();
-            if(isJump)
-            {
-                checkJump -= Time.fixedDeltaTime;
-                if (checkJump <= 0)
-                    isJump = false;
-            }
+            Jump();
+        }
+        public void InGround()
+        {
+            isGround = true;
         }
         private void GetInputValues()
         {
             moveX = Input.GetAxisRaw("Horizontal");
             moveZ = Input.GetAxisRaw("Vertical");
 
-            if (!isJump && Input.GetButtonDown("Jump"))
-            {
+            if(Input.GetButtonDown("Jump") && isGround)
                 isJump = true;
-                player.rigid.AddForce(0, jumpPower, 0, ForceMode.Impulse);
-                checkJump = jumpCooldown;
-            }
         }
         private void Move()
         {
@@ -56,6 +50,16 @@ namespace DungeonShooter
                 player.transform.Translate(new Vector3(moveX * Time.fixedDeltaTime * frontSpeed, 0, moveZ * Time.fixedDeltaTime * frontSpeed));
             else
                 player.transform.Translate(new Vector3(moveX * Time.fixedDeltaTime * backSpeed, 0, moveZ * Time.fixedDeltaTime * backSpeed));
+        }
+        private void Jump()
+        {
+            if (isJump && isGround)
+            {
+                player.rigid.AddForce(0, jumpPower, 0, ForceMode.Impulse);
+
+                isJump = false;
+                isGround = false;
+            }
         }
     }
 }

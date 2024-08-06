@@ -27,13 +27,12 @@ namespace DungeonShooter
         }
         public void CheckAnimation()
         {
-            if(inputController.isJump)
+            if(!inputController.isGround)
             {
                 animationType = AnimationType.Jump;
                 animator.Play("Jump_Full_Short");
-                return;
             }
-            if (inputController.moveX != 0 || inputController.moveZ != 0)
+            else if (inputController.moveX != 0 || inputController.moveZ != 0)
             {
                 if (inputController.moveZ <= 0)
                 {

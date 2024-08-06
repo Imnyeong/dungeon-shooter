@@ -6,20 +6,28 @@ namespace DungeonShooter
 {
     public class Character : MonoBehaviour
     {
-        public Collider col;
+        public Collider hitCol;
+        public Collider bottomCol;
         public Rigidbody rigid;
 
         public int id;
         public int hp;
 
-        public CharacterInput inputController;
-        public CharacterAnimation animController;
+        private CharacterInput inputController;
+        private CharacterAnimation animController;
 
         private void LateUpdate()
         {
             if (id != GameManager.instance.currentPlayer)
                 return;
             SendPacket();
+        }
+        public void OnTriggerEnter(Collider other)
+        {
+            if (inputController != null)
+            { 
+                inputController.InGround();
+            }
         }
         public void SetInfo(int _id)
         {
