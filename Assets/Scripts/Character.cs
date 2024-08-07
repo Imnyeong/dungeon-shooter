@@ -40,23 +40,25 @@ namespace DungeonShooter
         }
         private void SendPacket()
         {
-            TransformPacket packet = new TransformPacket()
+            CharacterPacket packet = new CharacterPacket()
             {
                 id = id,
                 position = transform.localPosition,
-                rotation = transform.localRotation
+                rotation = transform.localRotation,
+                animation = animController.animationType
             };
             WebSocketRequest request = new WebSocketRequest()
             {
-                packetType = PacketType.Transform,
+                packetType = PacketType.Character,
                 data = JsonUtility.ToJson(packet)
             };
             WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
         }
-        public void TransformSync(Vector3 _position, Quaternion _rotation)
+        public void DoSync(Vector3 _position, Quaternion _rotation, AnimationType _anim)
         {
             transform.localPosition = _position;
             transform.localRotation = _rotation;
+            animController.DoAnimation(_anim);
         }
     }
 }

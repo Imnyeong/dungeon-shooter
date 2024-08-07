@@ -22,8 +22,6 @@ namespace DungeonShooter
         {
             if (inputController != null)
                 CheckAnimation();
-            //else
-                //AnimationSync();
         }
         public void CheckAnimation()
         {

@@ -28,7 +28,7 @@ namespace DungeonShooter
     public enum PacketType
     {
         Spawn,
-        Transform
+        Character
     }
     public enum AnimationType
     {
@@ -47,11 +47,12 @@ namespace DungeonShooter
         public PacketType packetType;
         public string data;
     }
-    public class TransformPacket
+    public class CharacterPacket
     {
         public int id;
         public Vector3 position;
         public Quaternion rotation;
+        public AnimationType animation;
     }
     #endregion
 }

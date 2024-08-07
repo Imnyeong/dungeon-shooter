@@ -74,9 +74,9 @@ namespace DungeonShooter
                 //Debug.Log("???? :  " + ((WebSocket)sender).Url + ", ?????? : " + e.Data);
                 WebSocketResponse response = JsonUtility.FromJson<WebSocketResponse>(e.Data);
 
-                if (response.packetType == PacketType.Transform)
+                if (response.packetType == PacketType.Character)
                 {
-                    actions.Enqueue(() => GameManager.instance.MoveCharacter(response.data));
+                    actions.Enqueue(() => GameManager.instance.SyncCharacters(response.data));
                 }
                 else if(response.packetType == PacketType.Spawn && response.data == "O")
                 {
@@ -87,6 +87,10 @@ namespace DungeonShooter
                     actions.Enqueue(() => GameManager.instance.SpawnCharacter(1));
                 }
             };
+        }
+        public void OnApplicationQuit()
+        {
+            ws.Close();
         }
     }
 }

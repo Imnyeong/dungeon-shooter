@@ -41,15 +41,15 @@ namespace DungeonShooter
                 SetCamera(_id);
         }
 
-        public void MoveCharacter(string _data)
+        public void SyncCharacters(string _data)
         {
-            TransformPacket info = JsonUtility.FromJson<TransformPacket>(_data);
+            CharacterPacket info = JsonUtility.FromJson<CharacterPacket>(_data);
 
             if (currentPlayer == info.id)
                 return;
 
             Character player = players.Find(x => x.id == info.id);
-            player.TransformSync(info.position, info.rotation);
+            player.DoSync(info.position, info.rotation, info.animation);
         }
     }
 }
