@@ -27,29 +27,55 @@ namespace DungeonShooter
         }
         public void CheckAnimation()
         {
-            if(!inputController.isGround)
+            if (!inputController.isGround)
             {
-                animationType = AnimationType.Jump;
-                animator.Play("Jump_Full_Short");
+                DoAnimation(AnimationType.Jump);
+                return;
             }
-            else if (inputController.moveX != 0 || inputController.moveZ != 0)
-            {
-                if (inputController.moveZ <= 0)
-                {
-                    animationType = AnimationType.Back;
-                    animator.Play("Walking_B");
-                }
-                else
-                {
-                    animationType = AnimationType.Move;
-                    animator.Play("Running_A");
-                }
-            }
+
+            if (inputController.isGround && (inputController.moveX == 0 && inputController.moveZ == 0))
+                DoAnimation(AnimationType.Idle);
             else
             {
-                animationType = AnimationType.Idle;
-                animator.Play("Idle");
+                if(inputController.moveZ > 0)
+                    DoAnimation(AnimationType.Move);
+                else
+                    DoAnimation(AnimationType.Back);
             }
+        }
+
+        public void DoAnimation(AnimationType _type)
+        {
+            if (animationType == _type)
+                return;
+
+            switch (_type)
+            {
+                case AnimationType.Idle:
+                    {
+                        animator.SetBool("Move", false);
+                        animator.SetBool("Back", false);
+                        break;
+                    }
+                case AnimationType.Move:
+                    {
+                        animator.SetBool("Move", true);
+                        animator.SetBool("Back", false);
+                        break;
+                    }
+                case AnimationType.Back:
+                    {
+                        animator.SetBool("Move", true);
+                        animator.SetBool("Back", true);
+                        break;
+                    }
+                case AnimationType.Jump:
+                    {
+                        animator.SetTrigger("Jump");
+                        break;
+                    }
+            }
+            animationType = _type;
         }
     }
 }
