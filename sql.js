@@ -6,6 +6,7 @@ const { setDefaultResultOrder } = require('dns');
 var con = db.init();
 
 var userTable = 'Users';
+var roomTable = 'Rooms';
 
 module.exports = 
 {
@@ -45,7 +46,7 @@ module.exports =
     {
         var query = util.format("INSERT INTO %s(ID, PW, Nickname) Values (?, ?, ?);", userTable);
 
-        var data = req.body[0];
+        var data = req.body;
         var values = [data.ID, data.PW, data.Nickname];
         
         con.query(query, values, function(error)
@@ -84,6 +85,41 @@ module.exports =
                     message : JSON.stringify(results[0])
                 }));
             }
+          });
+    },
+
+    getRoomList : function(req, res)
+    {
+        var query = util.format("SELECT * FROM %s", roomTable);
+
+        con.query(query, function (error, results)
+        {
+            if(error)
+                throw error;
+
+            return res.send(JSON.stringify({
+                code : 200,
+                message : JSON.stringify(results)
+            }));
+        });
+    },
+
+    createRoom : function(req, res)
+    {
+        var query = util.format("INSERT INTO %s(RoomName, MasterID) Values (?, ?);", roomTable);
+
+        var data = req.body;
+        var values = [data.RoomName, data.MasterID];
+        
+        con.query(query, values, function(error)
+          {
+            if(error)
+                  throw error;
+
+              return res.send(JSON.stringify({
+                code : 200,
+                message : "Room Create Success"
+              }));
           });
     }
 }
