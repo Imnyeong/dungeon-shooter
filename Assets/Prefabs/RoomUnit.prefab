@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3678076165270825363}
   - component: {fileID: 5540202535185749852}
   m_Layer: 5
-  m_Name: Text - Nickname
+  m_Name: Text - Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,11 +33,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2876003280728793586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &1334527919492508336
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Nickname
+  m_Text: 0 / 2
 --- !u!114 &5540202535185749852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6453091947713165735}
   - component: {fileID: 4093015793148846176}
   m_Layer: 5
-  m_Name: Text - ID
+  m_Name: Text - RoomName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3370115096218239791
@@ -173,7 +173,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ID
+  m_Text: RoomName
 --- !u!114 &4093015793148846176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 7990029822917794005}
   - component: {fileID: 6831189048987033975}
   m_Layer: 5
-  m_Name: UserUnit
+  m_Name: RoomUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 884, y: 150}
+  m_SizeDelta: {x: 7, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6710107965188028577
 CanvasRenderer:
@@ -278,5 +278,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4079926d97f63a4794855a1d6d55df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textID: {fileID: 6453091947713165735}
-  textNickname: {fileID: 3678076165270825363}
+  textName: {fileID: 0}
+  textCount: {fileID: 0}

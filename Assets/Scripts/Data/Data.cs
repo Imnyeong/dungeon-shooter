@@ -2,6 +2,14 @@
 
 namespace DungeonShooter
 {
+    #region Enum
+    public enum ViewModelType
+    {
+        Login,
+        Register,
+        Lobby
+    }
+    #endregion
     #region WebRequestPacket
     public class WebRequestResponse
     {
@@ -21,6 +29,11 @@ namespace DungeonShooter
     {
         public string ID;
         public string PW;
+    }
+    public class RoomData
+    {
+        public string RoomName;
+        public string Players;
     }
     #endregion
 

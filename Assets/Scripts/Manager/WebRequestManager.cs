@@ -19,6 +19,7 @@ namespace DungeonShooter
             {
                 instance = this;
             }
+            DontDestroyOnLoad(this.gameObject);
         }
 
         IEnumerator GetRequest(string _uri, Action<WebRequestResponse> _action = null)
@@ -78,7 +79,7 @@ namespace DungeonShooter
         {
             StartCoroutine(GetRequest($"{url}/login/{JsonConvert.SerializeObject(_data)}", _action));
         }
-        public void AddUser(UserData _data)
+        public void Register(UserData _data, Action<WebRequestResponse> _action = null)
         {
             StartCoroutine(PostRequest($"{url}/register", JsonConvert.SerializeObject(_data)));
         }
