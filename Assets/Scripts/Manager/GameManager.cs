@@ -13,7 +13,6 @@ namespace DungeonShooter
 
         public int currentPlayer;
         public List<Character> players;
-
         private void Awake()
         {
             if (instance == null)
@@ -40,7 +39,6 @@ namespace DungeonShooter
             if (currentPlayer == _id)
                 SetCamera(_id);
         }
-
         public void SyncCharacters(string _data)
         {
             CharacterPacket info = JsonUtility.FromJson<CharacterPacket>(_data);

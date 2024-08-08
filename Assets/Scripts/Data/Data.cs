@@ -9,6 +9,11 @@ namespace DungeonShooter
         Register,
         Lobby
     }
+    public enum PopupType
+    {
+        Error,
+        CreateRoom
+    }
     #endregion
     #region WebRequestPacket
     public class WebRequestResponse
@@ -33,6 +38,7 @@ namespace DungeonShooter
     public class RoomData
     {
         public string RoomName;
+        public string MasterID;
         public string Players;
     }
     #endregion

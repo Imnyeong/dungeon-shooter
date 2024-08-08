@@ -42,7 +42,11 @@ namespace DungeonShooter
                 PW = _pw,
                 Nickname = _nickname
             };
-            WebRequestManager.instance.Register(sendData, (response) => LobbyCanvas.instance.ChangeView(ViewModelType.Login));
+            WebRequestManager.instance.Register(sendData, (response) => 
+            {
+                ClearData();
+                LobbyCanvas.instance.ChangeView(ViewModelType.Login);
+            });
         }
     }
 }

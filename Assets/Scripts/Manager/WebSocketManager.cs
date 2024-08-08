@@ -17,7 +17,6 @@ namespace DungeonShooter
             {
                 instance = this;
             }
-            DontDestroyOnLoad(this.gameObject);
         }
         private void Start()
         {

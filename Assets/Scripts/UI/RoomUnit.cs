@@ -11,6 +11,8 @@ namespace DungeonShooter
         public void Init(RoomData _data)
         {
             textName.text = _data.RoomName;
+            //if(_data.Players == null)
+            //ToDo : 인원 카운트
             textCount.text = _data.Players;
         }
     }

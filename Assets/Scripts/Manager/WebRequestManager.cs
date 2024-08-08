@@ -19,7 +19,6 @@ namespace DungeonShooter
             {
                 instance = this;
             }
-            DontDestroyOnLoad(this.gameObject);
         }
 
         IEnumerator GetRequest(string _uri, Action<WebRequestResponse> _action = null)
@@ -82,6 +81,10 @@ namespace DungeonShooter
         public void Register(UserData _data, Action<WebRequestResponse> _action = null)
         {
             StartCoroutine(PostRequest($"{url}/register", JsonConvert.SerializeObject(_data)));
+        }
+        public void GetRoomList(Action<WebRequestResponse> _action)
+        {
+            StartCoroutine(GetRequest($"{url}/getroomlist", _action));
         }
         #endregion
     }

@@ -7,14 +7,13 @@ namespace DungeonShooter
     public class LocalDataBase : MonoBehaviour
     {
         public static LocalDataBase instance;
-        public UserData userData;
+        public UserData loginData;
         private void Awake()
         {
             if (instance == null)
             {
                 instance = this;
-            }
-            DontDestroyOnLoad(this.gameObject);
+            }   
         }
     }
 }

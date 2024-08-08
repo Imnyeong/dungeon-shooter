@@ -49,7 +49,7 @@ namespace DungeonShooter
 
             UserData user = JsonConvert.DeserializeObject<UserData>(_response.message);
 
-            LocalDataBase.instance.userData = user;
+            LocalDataBase.instance.loginData = user;
             LobbyCanvas.instance.ChangeView(ViewModelType.Lobby);
             //Debug.Log($"ID = {user.ID}, PW = {user.PW}, Nickname = {user.Nickname}, Win = {user.Win}, Lose = {user.Lose}");
         }
