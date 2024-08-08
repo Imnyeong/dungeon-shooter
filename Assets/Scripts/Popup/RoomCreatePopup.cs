@@ -18,7 +18,7 @@ namespace DungeonShooter
         {
             btnCreate.onClick.AddListener(delegate
             {
-                //GetRoomList();
+                CreateRoom();
             });
             btnCancel.onClick.AddListener(delegate
             {
@@ -30,6 +30,21 @@ namespace DungeonShooter
         private void ClearData()
         {
             inputRoomName.text = string.Empty;
+        }
+
+        private void CreateRoom()
+        {
+            RoomData sendData = new RoomData()
+            {
+                RoomName = inputRoomName.text,
+                MasterID = LocalDataBase.instance.loginData.ID
+            };
+            WebRequestManager.instance.CreateRoom(sendData, (response) => 
+            {
+                ClearData();
+                LobbyCanvas.instance.HidePopup(PopupType.CreateRoom);
+                // ToDo: room¿¡ Á¢¼Ó
+            });
         }
     }
 }

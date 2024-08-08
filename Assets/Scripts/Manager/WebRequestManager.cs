@@ -42,7 +42,7 @@ namespace DungeonShooter
                 }
             }
         }
-        IEnumerator PostRequest(string _uri, string _packet)
+        IEnumerator PostRequest(string _uri, string _packet, Action<WebRequestResponse> _action = null)
         {
             using (UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(_uri, _packet))
             {
@@ -57,6 +57,13 @@ namespace DungeonShooter
                 if (webRequest.result == UnityWebRequest.Result.Success)
                 {
                     Debug.Log("Success Received: " + webRequest.result);
+                    Debug.Log("Success Received: " + webRequest.downloadHandler.text);
+                    
+                    if (_action != null)
+                    {
+                        WebRequestResponse response = JsonConvert.DeserializeObject<WebRequestResponse>(webRequest.downloadHandler.text);
+                        _action(response);
+                    }
                 }
                 else
                 {
@@ -80,11 +87,18 @@ namespace DungeonShooter
         }
         public void Register(UserData _data, Action<WebRequestResponse> _action = null)
         {
-            StartCoroutine(PostRequest($"{url}/register", JsonConvert.SerializeObject(_data)));
+            StartCoroutine(PostRequest($"{url}/register", JsonConvert.SerializeObject(_data), _action ));
         }
+
+        #endregion
+        #region Room
         public void GetRoomList(Action<WebRequestResponse> _action)
         {
             StartCoroutine(GetRequest($"{url}/getroomlist", _action));
+        }
+        public void CreateRoom(RoomData _data, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(PostRequest($"{url}/createroom", JsonConvert.SerializeObject(_data), _action));
         }
         #endregion
     }
