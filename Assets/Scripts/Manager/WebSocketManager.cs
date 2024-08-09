@@ -32,7 +32,7 @@ namespace DungeonShooter
                     packetType = PacketType.Spawn,
                     data = "O"
                 };
-                ws.Send(JsonUtility.ToJson(request));
+                ws.Send(JsonConvert.SerializeObject(request));
             }
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -41,7 +41,7 @@ namespace DungeonShooter
                     packetType = PacketType.Spawn,
                     data = "P"
                 };
-                ws.Send(JsonUtility.ToJson(request));
+                ws.Send(JsonConvert.SerializeObject(request));
             }
             if (Input.GetKeyDown(KeyCode.K))
             {
@@ -72,7 +72,7 @@ namespace DungeonShooter
             ws.OnMessage += (sender, e) =>
             {
                 //Debug.Log("???? :  " + ((WebSocket)sender).Url + ", ?????? : " + e.Data);
-                WebSocketResponse response = JsonUtility.FromJson<WebSocketResponse>(e.Data);
+                WebSocketResponse response = JsonConvert.DeserializeObject<WebSocketResponse>(e.Data);
 
                 if (response.packetType == PacketType.Character)
                 {

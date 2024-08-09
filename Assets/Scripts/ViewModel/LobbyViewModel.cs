@@ -1,6 +1,4 @@
 using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,13 +36,13 @@ namespace DungeonShooter
         {
             if (_response.code == 400)
                 return;
-            
-            List<RoomData> dataList = JsonConvert.DeserializeObject<List<RoomData>>(_response.message);
+
+            RoomData[] dataList = JsonConvert.DeserializeObject<RoomData[]>(_response.message);
             for (int i = 0; i < roomList.content.childCount; i++)
             {
                 Destroy(roomList.content.GetChild(i).gameObject);
             }
-            for (int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < dataList.Length; i++)
             {
                 GameObject unit = Instantiate(roomUnit, roomList.content);
                 unit.GetComponent<RoomUnit>().Init(dataList[i]);

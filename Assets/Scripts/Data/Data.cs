@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DungeonShooter
 {
@@ -21,6 +22,7 @@ namespace DungeonShooter
         public int code;
         public string message;
     }
+    [Serializable]
     public class UserData
     {
         public string ID;
@@ -35,11 +37,13 @@ namespace DungeonShooter
         public string ID;
         public string PW;
     }
+
+    [Serializable]
     public class RoomData
     {
         public string RoomName;
         public string MasterID;
-        public string[] Players;
+        public string Players;
     }
     #endregion
 

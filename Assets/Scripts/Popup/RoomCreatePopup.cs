@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,11 +34,15 @@ namespace DungeonShooter
         }
 
         private void CreateRoom()
-        {
+        { 
+            List<string> players = new List<string>();
+            players.Add(LocalDataBase.instance.loginData.ID);
+
             RoomData sendData = new RoomData()
             {
                 RoomName = inputRoomName.text,
-                MasterID = LocalDataBase.instance.loginData.ID
+                MasterID = LocalDataBase.instance.loginData.ID,
+                Players = JsonConvert.SerializeObject(players.ToArray())
             };
             WebRequestManager.instance.CreateRoom(sendData, (response) => 
             {

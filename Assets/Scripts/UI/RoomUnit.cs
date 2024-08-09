@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 namespace DungeonShooter
 {
@@ -11,9 +12,8 @@ namespace DungeonShooter
         public void Init(RoomData _data)
         {
             textName.text = _data.RoomName;
-            //if(_data.Players == null)
-            //ToDo : 인원 카운트
-            textCount.text = $"{_data.Players.Length}";
+            string[] players = JsonConvert.DeserializeObject<string[]>(_data.Players);
+            textCount.text = $"{players.Length} 명";
         }
     }
 }

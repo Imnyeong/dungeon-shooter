@@ -1,4 +1,4 @@
-using System.Collections;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,12 +24,12 @@ namespace DungeonShooter
         {
             GameObject camera = Instantiate(cameraPrefab, map.transform);
             FollowCam followCam = camera.GetComponent<FollowCam>();
-            Debug.Log($"currentPlayer = {currentPlayer}, _id = {_id}");
+            //Debug.Log($"currentPlayer = {currentPlayer}, _id = {_id}");
             followCam.SetTarget(_id);
         }
         public void SpawnCharacter(int _id)
         {
-            Debug.Log($"currentPlayer = {currentPlayer}, _id = {_id}");
+            //Debug.Log($"currentPlayer = {currentPlayer}, _id = {_id}");
             GameObject character = Instantiate(characterPrefab, map.transform);
             Character player = character.GetComponent<Character>();
 
@@ -41,7 +41,7 @@ namespace DungeonShooter
         }
         public void SyncCharacters(string _data)
         {
-            CharacterPacket info = JsonUtility.FromJson<CharacterPacket>(_data);
+            CharacterPacket info = JsonConvert.DeserializeObject<CharacterPacket>(_data);
 
             if (currentPlayer == info.id)
                 return;
