@@ -39,7 +39,7 @@ namespace DungeonShooter
     {
         public string RoomName;
         public string MasterID;
-        public string Players;
+        public string[] Players;
     }
     #endregion
 

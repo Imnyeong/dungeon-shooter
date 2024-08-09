@@ -12,7 +12,7 @@ namespace DungeonShooter
         public float moveX;
         public float moveZ;
 
-        public float frontSpeed = 10.0f;
+        public float frontSpeed = 8.0f;
         public float backSpeed = 5.0f;
 
         public bool isJump = false;
