@@ -106,10 +106,10 @@ module.exports =
 
     createRoom : function(req, res)
     {
-        var query = util.format("INSERT INTO %s(RoomName, MasterID) Values (?, ?);", roomTable);
+        var query = util.format("INSERT INTO %s(RoomName, MasterID, Players) Values (?, ?, ?);", roomTable);
 
         var data = req.body;
-        var values = [data.RoomName, data.MasterID];
+        var values = [data.RoomName, data.MasterID, data.Players];
         
         con.query(query, values, function(error)
           {
