@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using UnityEngine;
 
 namespace DungeonShooter
@@ -49,9 +48,9 @@ namespace DungeonShooter
             WebSocketRequest request = new WebSocketRequest()
             {
                 packetType = PacketType.Character,
-                data = JsonConvert.SerializeObject(packet)
+                data = JsonUtility.ToJson(packet)
             };
-            WebSocketManager.instance.SendPacket(JsonConvert.SerializeObject(request));
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
         }
         public void DoSync(Vector3 _position, Quaternion _rotation, AnimationType _anim)
         {
