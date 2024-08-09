@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
 using UnityEngine.Networking;
 using System.Text;
 using System;
+using Newtonsoft.Json;
 
 namespace DungeonShooter
 {

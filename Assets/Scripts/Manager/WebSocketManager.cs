@@ -2,6 +2,7 @@ using UnityEngine;
 using WebSocketSharp;
 using System.Collections.Concurrent;
 using System;
+using Newtonsoft.Json;
 
 namespace DungeonShooter
 {

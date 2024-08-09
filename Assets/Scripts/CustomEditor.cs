@@ -12,6 +12,8 @@ namespace DungeonShooter
         public GameObject tile;
         public GameObject wall;
 
+        public GameObject furniture;
+        public int furnitureCount;
 
         [MenuItem("Custom/EditorWindow")]
         private static void Init()
@@ -31,6 +33,11 @@ namespace DungeonShooter
             EditorGUILayout.LabelField("Wall Editor", EditorStyles.boldLabel);
             wall = (GameObject)EditorGUILayout.ObjectField("Wall", wall, typeof(GameObject), true);
             if (GUILayout.Button("Make Wall")) { MakeWall(mapSize, wall); };
+
+            EditorGUILayout.LabelField("Furniture Editor", EditorStyles.boldLabel);
+            furnitureCount = EditorGUILayout.IntField("Furniture Count", furnitureCount);
+            furniture = (GameObject)EditorGUILayout.ObjectField("Furniture", furniture, typeof(GameObject), true);
+            if (GUILayout.Button("Make Furniture")) { MakeFurniture(mapSize, furnitureCount); };
         }
         private void MakeMap(int _mapSize, GameObject _tile)
         {
@@ -95,6 +102,28 @@ namespace DungeonShooter
 
                     z += tileSize;
                 }
+            }
+        }
+        private void MakeFurniture(int _mapSize, int _count)
+        {
+            GameObject objects = GameObject.Find("Objects");
+            if (objects == null)
+            {
+                objects = new GameObject("Objects");
+            }
+
+            int value = _mapSize / 2;
+
+            for(int i = 0; i < _count; i++)
+            {
+                int randomX = Random.Range(value * -1, value + 1);
+                int randomZ = Random.Range(value * -1, value + 1);
+                int rotation = Random.Range(0, 5);
+
+                GameObject obj = Instantiate(furniture, objects.transform);
+                obj.AddComponent<MeshCollider>();
+                obj.transform.localPosition = new Vector3(randomX, 0.05f, randomZ);
+                obj.transform.localRotation = new Quaternion(0.0f, 90.0f * rotation, 0.0f, 0.0f);
             }
         }
     }
