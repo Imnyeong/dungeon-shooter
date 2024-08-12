@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f6fc0de2a6ba846b006063096c3f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  player: {fileID: 0}
   mouseX: 0
   mouseY: 0
   mouseSpeed: 15
@@ -104,3 +104,6 @@ MonoBehaviour:
   minY: -20
   camDistance: 4
   camHeight: 2
+  wall:
+    serializedVersion: 2
+    m_Bits: 8
