@@ -122,7 +122,7 @@ module.exports =
                 
                 if(find == null)
                 {
-                    var query = util.format("INSERT INTO %s(RoomID, RoomName, MasterID, Players) Values (?, ?, ?, ?);", roomTable);
+                    var query = util.format("INSERT INTO %s (RoomID, RoomName, MasterID, Players) Values (?, ?, ?, ?);", roomTable);
 
                     var data = req.body;
                     var values = [index, data.RoomName, data.MasterID, data.Players];
@@ -152,5 +152,71 @@ module.exports =
                 }
             }
         });
+    },
+
+    modifyRoom : function(req, res)
+    {
+        var data = req.body;
+        var query = util.format("UPDATE %s SET Players = '%s' WHERE RoomID = '%s';", roomTable, data.Players, data.RoomID);
+
+        con.query(query, function (error, results)
+        {
+            if(error)
+                throw error;
+
+            return res.send(JSON.stringify({
+                code : 200,
+                message : "Modify Success"
+            }));
+        });
+    },
+
+    deleteRoom : function(req, res)
+    {
+        var data = req.body;
+        var query = util.format("DELETE FROM %s WHERE RoomID = '%s';", roomTable, data.RoomID);
+
+        con.query(query, function (error, results)
+        {
+            if(error)
+                throw error;
+
+            return res.send(JSON.stringify({
+                code : 200,
+                message : "Delete Success"
+            }));
+        });
+    },
+
+    getRoomInfo : function(req, res)
+    {
+        var query = util.format("SELECT * FROM %s WHERE RoomID = '%s'", roomTable, req.id);
+
+        con.query(query, function (error, results)
+        {
+            if(error)
+                throw error;
+
+            return res.send(JSON.stringify({
+                code : 200,
+                message : JSON.stringify(results[0])
+            }));
+        });       
+    },
+
+    getRoomMeber : function(req, res)
+    {
+        var query = util.format("SELECT Players FROM %s WHERE RoomID = '%s'", roomTable, req.id);
+
+        con.query(query, function (error, results)
+        {
+            if(error)
+                throw error;
+
+            return res.send(JSON.stringify({
+                code : 200,
+                message : results[0].Players
+            }));
+        });       
     }
 }

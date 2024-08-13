@@ -28,6 +28,22 @@ router.get("/getroomlist", function(req, res) {
 router.post("/createroom", function(req, res) {
   sql.createRoom(req, res);
 });
+
+router.post("/modifyroom", function(req, res) {
+  sql.modifyRoom(req, res);
+});
+
+router.post("/deleteroom", function(req, res) {
+  sql.deleteRoom(req, res);
+});
+
+router.get("/getroominfo/:id", function(req, res) {
+  sql.getRoomInfo(req.params, res);
+});
+
+router.get("/getroommember/:id", function(req, res) {
+  sql.getRoomMeber(req.params, res);
+});
 //#endregion
 
 module.exports = router;
