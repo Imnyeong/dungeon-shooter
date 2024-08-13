@@ -8,7 +8,8 @@ namespace DungeonShooter
     {
         Login,
         Register,
-        Lobby
+        Lobby,
+        Room
     }
     public enum PopupType
     {
@@ -41,6 +42,7 @@ namespace DungeonShooter
     [Serializable]
     public class RoomData
     {
+        public int RoomID;
         public string RoomName;
         public string MasterID;
         public string Players;

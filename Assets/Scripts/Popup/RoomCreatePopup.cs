@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,8 +36,8 @@ namespace DungeonShooter
 
         private void CreateRoom()
         { 
-            List<string> players = new List<string>();
-            players.Add(LocalDataBase.instance.loginData.ID);
+            List<UserData> players = new List<UserData>();
+            players.Add(LocalDataBase.instance.loginData);
 
             RoomData sendData = new RoomData()
             {
@@ -48,6 +49,8 @@ namespace DungeonShooter
             {
                 ClearData();
                 LobbyCanvas.instance.HidePopup(PopupType.CreateRoom);
+                LocalDataBase.instance.currentRoom = Convert.ToInt32(response.message);
+                LobbyCanvas.instance.ChangeView(ViewModelType.Room);
                 // ToDo: room¿¡ Á¢¼Ó
             });
         }

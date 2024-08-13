@@ -1300,6 +1300,7 @@ MonoBehaviour:
   - {fileID: 1925193355}
   - {fileID: 651773781}
   - {fileID: 308423327}
+  - {fileID: 729875586}
   popups:
   - {fileID: 442016297}
 --- !u!1 &442016295
@@ -2059,6 +2060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 729875583}
   - component: {fileID: 729875585}
+  - component: {fileID: 729875586}
   m_Layer: 5
   m_Name: View - Room
   m_TagString: Untagged
@@ -2095,6 +2097,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729875582}
   m_CullTransparentMesh: 1
+--- !u!114 &729875586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729875582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0f9812247d44d4d923ef6e77ca2f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textRoomName: {fileID: 1682560321}
+  memberList: {fileID: 1926512691}
+  memberUnit: {fileID: 6791558007176834760, guid: 61afa931ec2dcba478e1031469712345, type: 3}
+  btnEixt: {fileID: 911006445}
+  btnStart: {fileID: 584488515}
 --- !u!1 &747374195
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,6 +4180,7 @@ MonoBehaviour:
     Win: 0
     Lose: 0
     Gold: 0
+  currentRoom: 0
 --- !u!1 &1529674624
 GameObject:
   m_ObjectHideFlags: 0
@@ -5670,7 +5690,7 @@ GameObject:
   - component: {fileID: 1926512692}
   - component: {fileID: 1926512691}
   m_Layer: 5
-  m_Name: Scroll View - UserList
+  m_Name: Scroll View - MemberList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5855,7 +5875,7 @@ GameObject:
   - component: {fileID: 1940813976}
   - component: {fileID: 1940813975}
   m_Layer: 5
-  m_Name: Rect - UserList
+  m_Name: Rect - MemberList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

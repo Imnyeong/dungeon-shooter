@@ -8,6 +8,9 @@ namespace DungeonShooter
     {
         public static LocalDataBase instance;
         public UserData loginData;
+
+        public int currentRoom;
+
         private void Awake()
         {
             if (instance == null)

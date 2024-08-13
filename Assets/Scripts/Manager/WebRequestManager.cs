@@ -88,8 +88,8 @@ namespace DungeonShooter
         {
             StartCoroutine(PostRequest($"{url}/register", JsonConvert.SerializeObject(_data), _action ));
         }
-
         #endregion
+
         #region Room
         public void GetRoomList(Action<WebRequestResponse> _action)
         {
@@ -98,6 +98,22 @@ namespace DungeonShooter
         public void CreateRoom(RoomData _data, Action<WebRequestResponse> _action = null)
         {
             StartCoroutine(PostRequest($"{url}/createroom", JsonConvert.SerializeObject(_data), _action));
+        }
+        public void ModifyRoom(RoomData _data, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(PostRequest($"{url}/modifyroom", JsonConvert.SerializeObject(_data), _action));
+        }
+        public void DeleteRoom(RoomData _data, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(PostRequest($"{url}/deleteroom", JsonConvert.SerializeObject(_data), _action));
+        }
+        public void GetRoomInfo(int _id, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(GetRequest($"{url}/getroominfo/{_id}", _action));
+        }
+        public void GetRoomMember(int _id, Action<WebRequestResponse> _action = null)
+        {
+            StartCoroutine(GetRequest($"{url}/getroommember/{_id}", _action));
         }
         #endregion
     }
