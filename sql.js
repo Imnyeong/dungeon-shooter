@@ -2,11 +2,14 @@ var util = require('util');
 var action = require('./action');
 var db = require('./db');
 const { setDefaultResultOrder } = require('dns');
+const { Console } = require('console');
 
 var con = db.init();
 
 var userTable = 'Users';
 var roomTable = 'Rooms';
+
+let maxRoomCount = 10;
 
 module.exports = 
 {
@@ -106,20 +109,48 @@ module.exports =
 
     createRoom : function(req, res)
     {
-        var query = util.format("INSERT INTO %s(RoomName, MasterID, Players) Values (?, ?, ?);", roomTable);
+        var searchQuery = util.format("SELECT * FROM %s", roomTable);
 
-        var data = req.body;
-        var values = [data.RoomName, data.MasterID, data.Players];
-        
-        con.query(query, values, function(error)
-          {
+        con.query(searchQuery, function (error, results)
+        {
             if(error)
-                  throw error;
+                throw error;
 
-              return res.send(JSON.stringify({
-                code : 200,
-                message : "Room Create Success"
-              }));
-          });
+            for(let index = 0 ; index < maxRoomCount; index++)
+            {
+                var find = results.find(x => x.RoomID == index);
+                
+                if(find == null)
+                {
+                    var query = util.format("INSERT INTO %s(RoomID, RoomName, MasterID, Players) Values (?, ?, ?, ?);", roomTable);
+
+                    var data = req.body;
+                    var values = [index, data.RoomName, data.MasterID, data.Players];
+                    
+                    con.query(query, values, function(error)
+                      {
+                        if(error)
+                              throw error;
+                        //console.log(index.toString());
+
+                        return res.send(JSON.stringify({
+                            code : 200,
+                            message : index.toString()
+                          }));                          
+                      });
+                    break;
+                }
+                else
+                {
+                    if(index == maxRoomCount - 1)
+                    {
+                        return res.send(JSON.stringify({
+                            code : 200,
+                            message : "RoomList is Full"
+                          }));   
+                    }
+                }
+            }
+        });
     }
 }
