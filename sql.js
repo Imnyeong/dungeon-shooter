@@ -157,8 +157,8 @@ module.exports =
     modifyRoom : function(req, res)
     {
         var data = req.body;
-        var query = util.format("UPDATE %s SET Players = '%s' WHERE RoomID = '%s';", roomTable, data.Players, data.RoomID);
-
+        var query = util.format("UPDATE %s SET Players = '%s', CanJoin = '%s' WHERE RoomID = '%s';", roomTable, data.Players, data.CanJoin, data.RoomID);
+        
         con.query(query, function (error, results)
         {
             if(error)
