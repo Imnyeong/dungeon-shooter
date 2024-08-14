@@ -18,6 +18,10 @@ namespace DungeonShooter
                 instance = this;
             }
         }
+        public ViewModel FindViewModel(ViewModelType _type)
+        {
+            return Array.Find(viewModels, x => x.type == _type);
+        }
         public void ChangeView(ViewModelType _type)
         {
             foreach(ViewModel view in viewModels)

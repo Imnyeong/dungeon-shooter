@@ -52,8 +52,10 @@ namespace DungeonShooter
     #region WebSocketPacket
     public enum PacketType
     {
+        Room,
         Spawn,
-        Character
+        Character,
+        Game
     }
     public enum AnimationType
     {

@@ -9,7 +9,8 @@ namespace DungeonShooter
     public class WebSocketManager : MonoBehaviour
     {
         public static WebSocketManager instance;
-        WebSocket ws = new WebSocket("");
+        private const string wsURL = "";
+        WebSocket ws; 
         private readonly ConcurrentQueue<Action> actions = new ConcurrentQueue<Action>();
 
         private void Awake()
@@ -19,38 +20,19 @@ namespace DungeonShooter
                 instance = this;
             }
         }
-        private void Start()
-        {
-            Connect();
-        }
         private void Update()
         {
             CheckAction();
-            if(Input.GetKeyDown(KeyCode.O))
-            {
-                WebSocketRequest request = new WebSocketRequest()
-                {
-                    packetType = PacketType.Spawn,
-                    data = "O"
-                };
-                ws.Send(JsonConvert.SerializeObject(request));
-            }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                WebSocketRequest request = new WebSocketRequest()
-                {
-                    packetType = PacketType.Spawn,
-                    data = "P"
-                };
-                ws.Send(JsonConvert.SerializeObject(request));
-            }
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                if (GameManager.instance.currentPlayer == 0)
-                    GameManager.instance.currentPlayer = 1;
-                else if (GameManager.instance.currentPlayer == 1)
-                    GameManager.instance.currentPlayer = 0;
-            }
+            //WebSocketRequest request = new WebSocketRequest()
+            //{
+            //    packetType = PacketType.Spawn,
+            //    data = "O"
+            //};
+            //ws.Send(JsonConvert.SerializeObject(request));
+        }
+        public void OnApplicationQuit()
+        {
+            ws.Close();
         }
         public void SendPacket(string _message)
         {
@@ -68,6 +50,7 @@ namespace DungeonShooter
         }
         public void Connect()
         {
+            ws = new WebSocket($"");
             ws.Connect();
 
             ws.OnMessage += (sender, e) =>
@@ -75,21 +58,27 @@ namespace DungeonShooter
                 //Debug.Log("???? :  " + ((WebSocket)sender).Url + ", ?????? : " + e.Data);
                 WebSocketResponse response = JsonConvert.DeserializeObject<WebSocketResponse>(e.Data);
 
-                if (response.packetType == PacketType.Character)
+                switch (response.packetType)
                 {
-                    actions.Enqueue(() => GameManager.instance.SyncCharacters(response.data));
+                    case PacketType.Character:
+                    {
+                        actions.Enqueue(() => GameManager.instance.SyncCharacters(response.data));
+                        break;
+                    }
+                    case PacketType.Room:
+                    {
+                        actions.Enqueue(delegate 
+                        {
+                            RoomViewModel room = LobbyCanvas.instance.FindViewModel(ViewModelType.Room).GetComponent<RoomViewModel>();
+                            room.GetRoomInfo(LocalDataBase.instance.currentRoom);
+                        });
+                        break;
+                    }
                 }
-                else if(response.packetType == PacketType.Spawn && response.data == "O")
-                {
-                    actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
-                }
-                else if(response.packetType == PacketType.Spawn && response.data == "P")
-                {
-                    actions.Enqueue(() => GameManager.instance.SpawnCharacter(1));
-                }
+                //actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
             };
         }
-        public void OnApplicationQuit()
+        public void Disconnect()
         {
             ws.Close();
         }

@@ -39,6 +39,7 @@ namespace DungeonShooter
         private void OnEnable()
         {
             GetRoomInfo(LocalDataBase.instance.currentRoom);
+            WebSocketManager.instance.Connect();
         }
         public void GetRoomInfo(int _id)
         {
@@ -89,6 +90,7 @@ namespace DungeonShooter
             {
                 LocalDataBase.instance.currentRoom = default;
                 LobbyCanvas.instance.ChangeView(ViewModelType.Lobby);
+                WebSocketManager.instance.Disconnect();
             });
         }
     }
