@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace DungeonShooter
 {
@@ -20,7 +21,8 @@ namespace DungeonShooter
                 return;
 
             data = _data;
-
+            gameObject.SetActive(Convert.ToBoolean(_data.CanJoin));
+            
             textName.text = _data.RoomName;
             textCount.text = $"{JsonConvert.DeserializeObject<UserData[]>(_data.Players).Length} 명";
 

@@ -17,6 +17,21 @@ namespace DungeonShooter
         CreateRoom
     }
     #endregion
+    #region String
+    public class StringData
+    {
+        // Animation
+        public const string AnimationMove = "Move";
+        public const string AnimationBack = "Back";
+        public const string AnimationJump = "Jump";
+        // Room
+        public const string RoomJoin = "Join";
+        public const string RoomExit = "Exit";
+        public const string RoomDelete = "Delete";
+        // Game
+        public const string GameStart = "Start";
+    }
+    #endregion
     #region WebRequestPacket
     public class WebRequestResponse
     {
@@ -45,10 +60,10 @@ namespace DungeonShooter
         public int RoomID;
         public string RoomName;
         public string MasterID;
+        public int CanJoin;
         public string Players;
     }
     #endregion
-
     #region WebSocketPacket
     public enum PacketType
     {

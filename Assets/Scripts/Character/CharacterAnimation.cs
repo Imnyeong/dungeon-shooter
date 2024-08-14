@@ -51,25 +51,25 @@ namespace DungeonShooter
             {
                 case AnimationType.Idle:
                     {
-                        animator.SetBool("Move", false);
-                        animator.SetBool("Back", false);
+                        animator.SetBool(StringData.AnimationMove, false);
+                        animator.SetBool(StringData.AnimationBack, false);
                         break;
                     }
                 case AnimationType.Move:
                     {
-                        animator.SetBool("Move", true);
-                        animator.SetBool("Back", false);
+                        animator.SetBool(StringData.AnimationMove, true);
+                        animator.SetBool(StringData.AnimationBack, false);
                         break;
                     }
                 case AnimationType.Back:
                     {
-                        animator.SetBool("Move", true);
-                        animator.SetBool("Back", true);
+                        animator.SetBool(StringData.AnimationMove, true);
+                        animator.SetBool(StringData.AnimationBack, true);
                         break;
                     }
                 case AnimationType.Jump:
                     {
-                        animator.SetTrigger("Jump");
+                        animator.SetTrigger(StringData.AnimationJump);
                         break;
                     }
             }

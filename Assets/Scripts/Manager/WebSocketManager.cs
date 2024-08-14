@@ -32,7 +32,10 @@ namespace DungeonShooter
         }
         public void OnApplicationQuit()
         {
-            ws.Close();
+            if(ws != null)
+            {
+                ws.Close();
+            }
         }
         public void SendPacket(string _message)
         {
@@ -60,20 +63,27 @@ namespace DungeonShooter
 
                 switch (response.packetType)
                 {
-                    case PacketType.Character:
-                    {
-                        actions.Enqueue(() => GameManager.instance.SyncCharacters(response.data));
-                        break;
-                    }
                     case PacketType.Room:
                     {
                         actions.Enqueue(delegate 
                         {
                             RoomViewModel room = LobbyCanvas.instance.FindViewModel(ViewModelType.Room).GetComponent<RoomViewModel>();
-                            room.GetRoomInfo(LocalDataBase.instance.currentRoom);
+                            if(response.data.Equals(StringData.RoomDelete))
+                            {
+                                room.KickedRoom();
+                            }
+                            else
+                            {
+                                room.GetRoomInfo(LocalDataBase.instance.currentRoom);
+                            }
                         });
                         break;
                     }
+                    case PacketType.Character:
+                        {
+                            actions.Enqueue(() => GameManager.instance.SyncCharacters(response.data));
+                            break;
+                        }
                 }
                 //actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
             };
@@ -81,6 +91,7 @@ namespace DungeonShooter
         public void Disconnect()
         {
             ws.Close();
+            ws = null;
         }
     }
 }

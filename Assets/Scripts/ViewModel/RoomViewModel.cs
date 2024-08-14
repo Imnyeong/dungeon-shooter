@@ -20,7 +20,7 @@ namespace DungeonShooter
         [SerializeField] private Button btnEixt;
         [SerializeField] private Button btnStart;
 
-        private RoomData data;
+        private RoomData data = null;
 
         private void Start()
         {
@@ -33,13 +33,13 @@ namespace DungeonShooter
             });
             btnStart.onClick.AddListener(delegate
             {
-                
+                StartGame();
             });
         }
         private void OnEnable()
         {
+            ConnectRoom();
             GetRoomInfo(LocalDataBase.instance.currentRoom);
-            WebSocketManager.instance.Connect();
         }
         public void GetRoomInfo(int _id)
         {
@@ -51,8 +51,9 @@ namespace DungeonShooter
                 return;
 
             data = JsonConvert.DeserializeObject<RoomData>(_response.message);
-
             textRoomName.text = data.RoomName;
+            btnStart.gameObject.SetActive(LocalDataBase.instance.loginData.ID == data.MasterID);
+
             UserData[] players = JsonConvert.DeserializeObject<UserData[]>(data.Players);
 
             for (int i = 0; i < memberList.content.childCount; i++)
@@ -64,6 +65,22 @@ namespace DungeonShooter
                 GameObject unit = Instantiate(memberUnit, memberList.content);
                 unit.GetComponent<MemberUnit>().Init(players[i], players[i].ID == data.MasterID);
             }
+        }
+        public void StartGame()
+        {
+            WebSocketRequest request = new WebSocketRequest()
+            {
+                packetType = PacketType.Game,
+                data = StringData.GameStart
+            };
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+        }
+        public void KickedRoom()
+        {
+            data = null;
+            WebSocketManager.instance.Disconnect();
+            LocalDataBase.instance.currentRoom = default;
+            LobbyCanvas.instance.ChangeView(ViewModelType.Lobby);
         }
         public void ExitRoom()
         {
@@ -80,6 +97,7 @@ namespace DungeonShooter
             };
             WebRequestManager.instance.ModifyRoom(sendData, (response) =>
             {
+                DisconnectRoom(StringData.RoomExit);
                 LocalDataBase.instance.currentRoom = default;
                 LobbyCanvas.instance.ChangeView(ViewModelType.Lobby);
             });
@@ -88,10 +106,30 @@ namespace DungeonShooter
         {
             WebRequestManager.instance.DeleteRoom(data, (response) =>
             {
+                DisconnectRoom(StringData.RoomDelete);
                 LocalDataBase.instance.currentRoom = default;
                 LobbyCanvas.instance.ChangeView(ViewModelType.Lobby);
-                WebSocketManager.instance.Disconnect();
             });
+        }
+        public void ConnectRoom()
+        {
+            WebSocketManager.instance.Connect();
+            WebSocketRequest request = new WebSocketRequest()
+            {
+                packetType = PacketType.Room,
+                data = StringData.RoomJoin
+            };
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+        }
+        public void DisconnectRoom(string _data)
+        {
+            WebSocketRequest request = new WebSocketRequest()
+            {
+                packetType = PacketType.Room,
+                data = _data
+            };
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+            WebSocketManager.instance.Disconnect();
         }
     }
 }
