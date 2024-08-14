@@ -20,6 +20,9 @@ namespace DungeonShooter
     #region String
     public class StringData
     {
+        // Scene
+        public const string SceneLobby = "Lobby";
+        public const string SceneInGame = "InGame";
         // Animation
         public const string AnimationMove = "Move";
         public const string AnimationBack = "Back";
@@ -91,7 +94,7 @@ namespace DungeonShooter
     }
     public class CharacterPacket
     {
-        public int id;
+        public string id;
         public Vector3 position;
         public Quaternion rotation;
         public AnimationType animation;

@@ -8,7 +8,7 @@ namespace DungeonShooter
         public Collider bottomCol;
         public Rigidbody rigid;
 
-        public int id;
+        public string id;
         public int hp;
 
         private CharacterInput inputController;
@@ -27,7 +27,7 @@ namespace DungeonShooter
                 inputController.InGround();
             }
         }
-        public void SetInfo(int _id)
+        public void SetInfo(string _id)
         {
             id = _id;
             if (GameManager.instance.currentPlayer == _id)

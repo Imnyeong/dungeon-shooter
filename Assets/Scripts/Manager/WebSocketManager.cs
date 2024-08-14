@@ -84,6 +84,18 @@ namespace DungeonShooter
                             actions.Enqueue(() => GameManager.instance.SyncCharacters(response.data));
                             break;
                         }
+                    case PacketType.Game:
+                        {
+                            actions.Enqueue(delegate
+                            {
+                                if (response.data.Equals(StringData.GameStart))
+                                {
+                                    RoomViewModel room = LobbyCanvas.instance.FindViewModel(ViewModelType.Room).GetComponent<RoomViewModel>();
+                                    room.LoadInGameScene();
+                                }
+                            });
+                            break;
+                        }
                 }
                 //actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
             };

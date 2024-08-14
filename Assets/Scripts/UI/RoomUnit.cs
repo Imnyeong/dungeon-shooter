@@ -27,7 +27,16 @@ namespace DungeonShooter
             textCount.text = $"{JsonConvert.DeserializeObject<UserData[]>(_data.Players).Length} 명";
 
             btnJoin.onClick.RemoveAllListeners();
-            btnJoin.onClick.AddListener(Join);
+            btnJoin.onClick.AddListener(delegate
+            {
+                WebRequestManager.instance.GetRoomInfo(data.RoomID, (response) =>
+                {
+                    if (Convert.ToBoolean(data.CanJoin))
+                        Join();
+                    else
+                        return;
+                });
+            });
         }
 
         public void Join()

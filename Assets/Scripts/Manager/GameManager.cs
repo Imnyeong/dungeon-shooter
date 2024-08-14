@@ -11,7 +11,11 @@ namespace DungeonShooter
         public GameObject cameraPrefab;
         public GameObject map;
 
-        public int currentPlayer;
+        public string currentPlayer;
+
+        public RoomData currentRoom = null;
+        public UserData[] users = null;
+
         public List<Character> players;
         private void Awake()
         {
@@ -20,16 +24,35 @@ namespace DungeonShooter
                 instance = this;
             }
         }
-        public void SetCamera(int _id)
+        private void Start()
+        {
+            WebRequestManager.instance.GetRoomInfo(LocalDataBase.instance.currentRoom, (response) =>
+            {
+                SetGame(response);
+            });
+        }
+        public void SetGame(WebRequestResponse _response)
+        {
+            if (_response.code == 400)
+                return;
+
+            currentPlayer = LocalDataBase.instance.loginData.ID;
+            currentRoom = JsonConvert.DeserializeObject<RoomData>(_response.message);
+            users = JsonConvert.DeserializeObject<UserData[]>(currentRoom.Players);
+
+            foreach (UserData user in users)
+            {
+                SpawnCharacter(user.ID);
+            }
+        }
+        public void SetCamera(string _id)
         {
             GameObject camera = Instantiate(cameraPrefab, map.transform);
             FollowCam followCam = camera.GetComponent<FollowCam>();
-            //Debug.Log($"currentPlayer = {currentPlayer}, _id = {_id}");
             followCam.SetTarget(_id);
         }
-        public void SpawnCharacter(int _id)
+        public void SpawnCharacter(string _id)
         {
-            //Debug.Log($"currentPlayer = {currentPlayer}, _id = {_id}");
             GameObject character = Instantiate(characterPrefab, map.transform);
             Character player = character.GetComponent<Character>();
 
@@ -42,11 +65,11 @@ namespace DungeonShooter
         public void SyncCharacters(string _data)
         {
             CharacterPacket info = JsonConvert.DeserializeObject<CharacterPacket>(_data);
+            Character player = players.Find(x => x.id == info.id);
 
-            if (currentPlayer == info.id)
+            if (player == null)
                 return;
 
-            Character player = players.Find(x => x.id == info.id);
             player.DoSync(info.position, info.rotation, info.animation);
         }
     }

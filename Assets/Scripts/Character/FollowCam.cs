@@ -19,7 +19,7 @@ namespace DungeonShooter
 
         [SerializeField] private LayerMask wall;
 
-        public void SetTarget(int _id)
+        public void SetTarget(string _id)
         {
             player = GameManager.instance.players.Find(x => x.id == _id).gameObject.transform;
         }

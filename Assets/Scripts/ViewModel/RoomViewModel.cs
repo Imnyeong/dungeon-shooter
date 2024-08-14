@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace DungeonShooter
@@ -68,12 +69,28 @@ namespace DungeonShooter
         }
         public void StartGame()
         {
-            WebSocketRequest request = new WebSocketRequest()
+            RoomData sendData = new RoomData()
             {
-                packetType = PacketType.Game,
-                data = StringData.GameStart
+                RoomID = data.RoomID,
+                RoomName = data.RoomName,
+                CanJoin = 0,
+                MasterID = data.MasterID,
+                Players = data.Players
             };
-            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+            WebRequestManager.instance.ModifyRoom(sendData, (response) =>
+            {
+                WebSocketRequest request = new WebSocketRequest()
+                {
+                    packetType = PacketType.Game,
+                    data = StringData.GameStart
+                };
+                WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+                LoadInGameScene();
+            });
+        }
+        public void LoadInGameScene()
+        {
+            SceneManager.LoadScene(StringData.SceneInGame);
         }
         public void KickedRoom()
         {
