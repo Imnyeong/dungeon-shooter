@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DungeonShooter
 {
@@ -20,9 +21,12 @@ namespace DungeonShooter
         [HideInInspector] public CharacterAttack attackController;
         [HideInInspector] public FollowCam followCam;
 
+        [SerializeField] private Canvas canvasHP;
+        [SerializeField] private Slider sliderHP;
+
         private void LateUpdate()
         {
-            if (id != GameManager.instance.currentPlayer)
+            if (id != GameManager.instance.currentID)
                 return;
 
             SendPacket();
@@ -45,7 +49,7 @@ namespace DungeonShooter
             {
                 _weapon.gameObject.SetActive(false);
                 hp -= _weapon.atkDamage;
-                if(hp <= 0)
+                if (hp <= 0)
                 {
                     Death();
                 }
@@ -55,9 +59,10 @@ namespace DungeonShooter
         {
             id = _id;
             hp = maxHp;
-            if (GameManager.instance.currentPlayer == _id)
+            if (GameManager.instance.currentID == _id)
             {
                 inputController = gameObject.AddComponent<CharacterInput>();
+                canvasHP.gameObject.SetActive(false);
             }
             animController = gameObject.AddComponent<CharacterAnimation>();
             attackController = gameObject.AddComponent<CharacterAttack>();
@@ -95,6 +100,7 @@ namespace DungeonShooter
             transform.localPosition = _position;
             transform.localRotation = _rotation;
             animController.DoAnimation(_anim);
+            sliderHP.value = (float)hp / (float)maxHp;
         }
     }
 }

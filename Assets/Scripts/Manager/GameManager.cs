@@ -11,7 +11,8 @@ namespace DungeonShooter
         public GameObject cameraPrefab;
         public GameObject map;
 
-        public string currentPlayer;
+        public string currentID;
+        public Character currentPlayer;
 
         public RoomData currentRoom = null;
         public UserData[] users = null;
@@ -41,7 +42,7 @@ namespace DungeonShooter
             if (_response.code == 400)
                 return;
 
-            currentPlayer = LocalDataBase.instance.loginData.ID;
+            currentID = LocalDataBase.instance.loginData.ID;
             currentRoom = JsonConvert.DeserializeObject<RoomData>(_response.message);
             users = JsonConvert.DeserializeObject<UserData[]>(currentRoom.Players);
 
@@ -50,11 +51,11 @@ namespace DungeonShooter
                 SpawnCharacter(users[i].ID, i);
             }
         }
-        public void SetCamera(string _id)
+        public void SetCamera()
         {
             GameObject camera = Instantiate(cameraPrefab, map.transform);
             FollowCam followCam = camera.GetComponent<FollowCam>();
-            followCam.SetTarget(_id);
+            followCam.SetTarget();
         }
         public void SpawnCharacter(string _id, int _index)
         {
@@ -65,8 +66,11 @@ namespace DungeonShooter
             player.SetInfo(_id);
             players.Add(player);
 
-            if (currentPlayer == _id)
-                SetCamera(_id);
+            if (currentID == _id)
+            {
+                currentPlayer = player;
+                SetCamera();
+            }
         }
         public void SyncCharacters(string _data)
         {

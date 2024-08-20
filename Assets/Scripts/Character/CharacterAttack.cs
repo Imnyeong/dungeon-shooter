@@ -17,7 +17,7 @@ namespace DungeonShooter
 
         public void SetCursor()
         {
-            if (player.id == GameManager.instance.currentPlayer)
+            if (player.id == GameManager.instance.currentID)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
