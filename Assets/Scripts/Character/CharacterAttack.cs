@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DungeonShooter
 {
-    public class CharacterShoot : MonoBehaviour
+    public class CharacterAttack : MonoBehaviour
     {
         private Character player;
         private const float camHeight = 2.0f;
@@ -24,9 +24,9 @@ namespace DungeonShooter
             }
         }
 
-        public void OnClickAttack()
-        {
-            DoShoot(player.id, player.transform.position, player.followCam.transform.forward);
+        public void DoAttack()
+        {            
+            SyncAttack(player.id, player.transform.position, player.followCam.transform.forward);
             SendPacket();
         }
         private void SendPacket()
@@ -44,7 +44,7 @@ namespace DungeonShooter
             };
             WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
         }
-        public void DoShoot(string _id, Vector3 _startPos, Vector3 _dir)
+        public void SyncAttack(string _id, Vector3 _startPos, Vector3 _dir)
         {
             Vector3 startPos = new Vector3(_startPos.x, _startPos.y + camHeight, _startPos.z);
             Vector3 direction = _dir.normalized;

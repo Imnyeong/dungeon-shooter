@@ -17,7 +17,7 @@ namespace DungeonShooter
         public bool isGround = true;
         public float jumpPower = 7.0f;
 
-        public bool canShoot = true;
+        public bool canAttack = true;
 
         private void Start()
         {
@@ -36,6 +36,10 @@ namespace DungeonShooter
         {
             isGround = true;
         }
+        public void CanAttack()
+        {
+            canAttack = true;
+        }
         private void GetInputValues()
         {
             moveX = Input.GetAxisRaw("Horizontal");
@@ -44,8 +48,8 @@ namespace DungeonShooter
             if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
                 player.followCam.ChangeView();
 
-            if (Input.GetMouseButtonDown(0) && canShoot)
-                player.shootController.OnClickAttack();
+            if (Input.GetMouseButtonDown(0) && canAttack)
+                OnClickAttack();
 
             if (Input.GetButtonDown("Jump") && isGround)
                 isJump = true;
@@ -65,6 +69,11 @@ namespace DungeonShooter
                 isJump = false;
                 isGround = false;
             }
+        }
+        private void OnClickAttack()
+        {
+            canAttack = false;
+            player.attackController.DoAttack();
         }
     }
 }

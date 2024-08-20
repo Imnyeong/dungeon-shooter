@@ -7,6 +7,8 @@ namespace DungeonShooter
     public class Weapon : MonoBehaviour
     {
         public string playerID = string.Empty;
+        public int atkDamage = 10;
+
         [SerializeField] private Rigidbody rigid;
         [SerializeField] private Collider col;
         [SerializeField] private const float atkSpeed = 50.0f;

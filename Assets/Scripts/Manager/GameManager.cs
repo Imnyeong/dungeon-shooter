@@ -86,7 +86,7 @@ namespace DungeonShooter
             if (player == null)
                 return;
 
-            player.shootController.DoShoot(info.playerID, info.startPos, info.direction);
+            player.attackController.SyncAttack(info.playerID, info.startPos, info.direction);
         }
     }
 }

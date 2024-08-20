@@ -28,6 +28,7 @@ namespace DungeonShooter
         public const string AnimationBack = "Back";
         public const string AnimationJump = "Jump";
         public const string AnimationAttack = "Attack";
+        public const string AnimationDeath = "Death";
         // Room
         public const string RoomJoin = "Join";
         public const string RoomExit = "Exit";
@@ -87,7 +88,8 @@ namespace DungeonShooter
         Move,
         Back,
         Jump,
-        Attack
+        Attack,
+        Death
     }
     public class WebSocketRequest
     {

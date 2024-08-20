@@ -38,6 +38,9 @@ namespace DungeonShooter
         }
         private void FixedUpdate()
         {
+            if (!player.GetComponent<Character>().isLive)
+                return;
+
             GetAxisValues();
         }
         private void LateUpdate()

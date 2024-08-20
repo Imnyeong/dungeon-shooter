@@ -96,6 +96,11 @@ namespace DungeonShooter
                             });
                             break;
                         }
+                    case PacketType.Weapon:
+                        {
+                            actions.Enqueue(() => GameManager.instance.SyncWeapon(response.data));
+                            break;
+                        }
                 }
                 //actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
             };

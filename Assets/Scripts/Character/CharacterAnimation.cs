@@ -24,12 +24,21 @@ namespace DungeonShooter
         }
         public void CheckAnimation()
         {
+            if(!player.isLive)
+            {
+                DoAnimation(AnimationType.Death);
+                return;
+            }
+            if (!player.inputController.canAttack)
+            {
+                DoAnimation(AnimationType.Attack);
+                return;
+            }
             if (!player.inputController.isGround)
             {
                 DoAnimation(AnimationType.Jump);
                 return;
             }
-
             if (player.inputController.isGround && (player.inputController.moveX == 0 && player.inputController.moveZ == 0))
                 DoAnimation(AnimationType.Idle);
             else
@@ -69,6 +78,16 @@ namespace DungeonShooter
                 case AnimationType.Jump:
                     {
                         animator.SetTrigger(StringData.AnimationJump);
+                        break;
+                    }
+                case AnimationType.Attack:
+                    {
+                        animator.SetTrigger(StringData.AnimationAttack);
+                        break;
+                    }
+                case AnimationType.Death:
+                    {
+                        animator.SetTrigger(StringData.AnimationDeath);
                         break;
                     }
             }

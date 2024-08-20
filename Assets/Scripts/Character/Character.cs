@@ -13,16 +13,18 @@ namespace DungeonShooter
         public int weaponId;
 
         private const int maxHp = 100;
+        public bool isLive { get; private set; } = true;
 
         [HideInInspector] public CharacterInput inputController;
         [HideInInspector] public CharacterAnimation animController;
-        [HideInInspector] public CharacterShoot shootController;
+        [HideInInspector] public CharacterAttack attackController;
         [HideInInspector] public FollowCam followCam;
 
         private void LateUpdate()
         {
             if (id != GameManager.instance.currentPlayer)
                 return;
+
             SendPacket();
         }
         public void OnTriggerEnter(Collider other)
@@ -32,12 +34,21 @@ namespace DungeonShooter
                 inputController.InGround();
             }
         }
+        public void CanAttack()
+        {
+            if(inputController != null)
+                inputController.CanAttack();
+        }
         public void HitWeapon(Weapon _weapon)
         {
             if (inputController != null && _weapon.playerID != id)
             {
                 _weapon.gameObject.SetActive(false);
-                hp -= 10;
+                hp -= _weapon.atkDamage;
+                if(hp <= 0)
+                {
+                    Death();
+                }
             }
         }
         public void SetInfo(string _id)
@@ -49,7 +60,17 @@ namespace DungeonShooter
                 inputController = gameObject.AddComponent<CharacterInput>();
             }
             animController = gameObject.AddComponent<CharacterAnimation>();
-            shootController = gameObject.AddComponent<CharacterShoot>();
+            attackController = gameObject.AddComponent<CharacterAttack>();
+        }
+        public void Death()
+        {
+            isLive = false;
+        }
+        public void ClearData()
+        {
+            Destroy(inputController);
+            Destroy(hitCol);
+            Destroy(rigid);
         }
         private void SendPacket()
         {
