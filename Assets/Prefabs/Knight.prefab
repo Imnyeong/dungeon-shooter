@@ -1442,7 +1442,7 @@ GameObject:
   - component: {fileID: 4350855202344852728}
   m_Layer: 0
   m_Name: Knight
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1558,8 +1558,11 @@ MonoBehaviour:
   rigid: {fileID: 7928061504141457708}
   id: 0
   hp: 0
+  weaponId: 0
   inputController: {fileID: 0}
   animController: {fileID: 0}
+  shootController: {fileID: 0}
+  followCam: {fileID: 0}
 --- !u!1 &5633512716819005062
 GameObject:
   m_ObjectHideFlags: 0

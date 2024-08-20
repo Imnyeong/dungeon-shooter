@@ -7,9 +7,8 @@ namespace DungeonShooter
     public class CharacterShoot : MonoBehaviour
     {
         private Character player;
-
+        private const float camHeight = 2.0f;
         Vector3 dir;
-        Ray ray;
 
         private void Start()
         {
@@ -31,15 +30,17 @@ namespace DungeonShooter
         }
         public void SetDirection()
         {
-            dir = player.followCam.cam.ScreenPointToRay(Input.mousePosition).direction;
+            dir = player.followCam.transform.forward;
         }
         public void DoShoot()
         {
-            ray = new Ray(player.gameObject.transform.position, dir);
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
-            {
-                Debug.Log($"{hit.transform.name}");
-            }
+            Vector3 startPos = new Vector3(player.gameObject.transform.position.x, player.gameObject.transform.position.y + camHeight, player.gameObject.transform.position.z);
+            Vector3 direction = dir.normalized;
+
+            Transform weapon = GameManager.instance.objectPool.GetWeapon(player.weaponId).transform;
+            weapon.position = startPos;
+            weapon.rotation = Quaternion.FromToRotation(Vector3.up, direction);
+            weapon.GetComponent<Weapon>().Shoot(direction);
         }
     }
 }

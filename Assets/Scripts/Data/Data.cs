@@ -33,6 +33,10 @@ namespace DungeonShooter
         public const string RoomDelete = "Delete";
         // Game
         public const string GameStart = "Start";
+        // Tag
+        public const string TagMap = "Map";
+        public const string TagPlayer = "Player";
+        public const string TagWeapon = "Weapon";
     }
     #endregion
     #region WebRequestPacket

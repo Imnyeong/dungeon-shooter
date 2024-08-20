@@ -19,6 +19,8 @@ namespace DungeonShooter
         public List<Character> players;
         public Transform[] spawnPoint;
 
+        public ObjectPool objectPool;
+
         private void Awake()
         {
             if (instance == null)

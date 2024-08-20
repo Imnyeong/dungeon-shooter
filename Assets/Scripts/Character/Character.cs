@@ -10,6 +10,7 @@ namespace DungeonShooter
 
         public string id;
         public int hp;
+        public int weaponId;
 
         [HideInInspector] public CharacterInput inputController;
         [HideInInspector] public CharacterAnimation animController;

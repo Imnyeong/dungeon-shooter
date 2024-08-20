@@ -7,7 +7,6 @@ namespace DungeonShooter
     public class FollowCam : MonoBehaviour
     {
         public Transform player;
-        public Camera cam;
         public Canvas aim;
 
         public float mouseX;
@@ -28,10 +27,6 @@ namespace DungeonShooter
 
         [SerializeField] private LayerMask wall;
 
-        private void Awake()
-        {
-            cam = GetComponent<Camera>();
-        }
         public void SetTarget(string _id)
         {
             player = GameManager.instance.players.Find(x => x.id == _id).gameObject.transform;
