@@ -17,6 +17,8 @@ namespace DungeonShooter
         public UserData[] users = null;
 
         public List<Character> players;
+        public Transform[] spawnPoint;
+
         private void Awake()
         {
             if (instance == null)
@@ -31,6 +33,7 @@ namespace DungeonShooter
                 SetGame(response);
             });
         }
+
         public void SetGame(WebRequestResponse _response)
         {
             if (_response.code == 400)
@@ -40,9 +43,9 @@ namespace DungeonShooter
             currentRoom = JsonConvert.DeserializeObject<RoomData>(_response.message);
             users = JsonConvert.DeserializeObject<UserData[]>(currentRoom.Players);
 
-            foreach (UserData user in users)
+            for (int i = 0; i < users.Length; i++)
             {
-                SpawnCharacter(user.ID);
+                SpawnCharacter(users[i].ID, i);
             }
         }
         public void SetCamera(string _id)
@@ -51,11 +54,12 @@ namespace DungeonShooter
             FollowCam followCam = camera.GetComponent<FollowCam>();
             followCam.SetTarget(_id);
         }
-        public void SpawnCharacter(string _id)
+        public void SpawnCharacter(string _id, int _index)
         {
             GameObject character = Instantiate(characterPrefab, map.transform);
             Character player = character.GetComponent<Character>();
-
+            player.transform.position = spawnPoint[_index].position;
+            
             player.SetInfo(_id);
             players.Add(player);
 

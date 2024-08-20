@@ -7,6 +7,8 @@ namespace DungeonShooter
     public class FollowCam : MonoBehaviour
     {
         public Transform player;
+        public Camera cam;
+        public Canvas aim;
 
         public float mouseX;
         public float mouseY;
@@ -14,14 +16,30 @@ namespace DungeonShooter
         public float mouseSpeed = 15.0f;
         public float maxY = 60.0f;
         public float minY = -20.0f;
-        public float camDistance = 3.0f;
-        public float camHeight = 3.0f;
+
+        public float camDistance;
+        public float camHeight;
+
+        private const float distanceThree = 3.0f;
+        private const float heightThree = 2.0f;
+
+        private const float distanceOne = -1.0f;
+        private const float heightOne = 2.0f;
 
         [SerializeField] private LayerMask wall;
 
+        private void Awake()
+        {
+            cam = GetComponent<Camera>();
+        }
         public void SetTarget(string _id)
         {
             player = GameManager.instance.players.Find(x => x.id == _id).gameObject.transform;
+            player.GetComponent<Character>().followCam = this;
+
+            camDistance = distanceThree;
+            camHeight = heightThree;
+            aim.gameObject.SetActive(false);
         }
         private void FixedUpdate()
         {
@@ -52,6 +70,21 @@ namespace DungeonShooter
             else
             {
                 transform.position = new Vector3(player.position.x, player.position.y + camHeight, player.position.z) - transform.forward * camDistance;
+            }
+        }
+        public void ChangeView()
+        {
+            if(camDistance == distanceThree)
+            {
+                camDistance = distanceOne;
+                camHeight = heightOne;
+                aim.gameObject.SetActive(true);
+            }
+            else
+            {
+                camDistance = distanceThree;
+                camHeight = heightThree;
+                aim.gameObject.SetActive(false);
             }
         }
     }

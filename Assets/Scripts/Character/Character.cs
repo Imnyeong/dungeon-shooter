@@ -11,8 +11,10 @@ namespace DungeonShooter
         public string id;
         public int hp;
 
-        private CharacterInput inputController;
-        private CharacterAnimation animController;
+        [HideInInspector] public CharacterInput inputController;
+        [HideInInspector] public CharacterAnimation animController;
+        [HideInInspector] public CharacterShoot shootController;
+        [HideInInspector] public FollowCam followCam;
 
         private void LateUpdate()
         {
@@ -35,6 +37,7 @@ namespace DungeonShooter
                 inputController = gameObject.AddComponent<CharacterInput>();
             }
             animController = gameObject.AddComponent<CharacterAnimation>();
+            shootController = gameObject.AddComponent<CharacterShoot>();
         }
         private void SendPacket()
         {

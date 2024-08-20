@@ -17,9 +17,11 @@ namespace DungeonShooter
         public bool isGround = true;
         public float jumpPower = 7.0f;
 
+        public bool canShoot = true;
+
         private void Start()
         {
-            player = GetComponentInParent<Character>();
+            player = GetComponent<Character>();
         }
         private void Update()
         {
@@ -39,7 +41,13 @@ namespace DungeonShooter
             moveX = Input.GetAxisRaw("Horizontal");
             moveZ = Input.GetAxisRaw("Vertical");
 
-            if(Input.GetButtonDown("Jump") && isGround)
+            if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
+                player.followCam.ChangeView();
+
+            if (Input.GetMouseButtonDown(0) && canShoot)
+                player.shootController.DoShoot();
+
+            if (Input.GetButtonDown("Jump") && isGround)
                 isJump = true;
         }
         private void Move()
