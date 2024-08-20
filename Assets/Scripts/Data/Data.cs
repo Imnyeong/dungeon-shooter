@@ -27,6 +27,7 @@ namespace DungeonShooter
         public const string AnimationMove = "Move";
         public const string AnimationBack = "Back";
         public const string AnimationJump = "Jump";
+        public const string AnimationAttack = "Attack";
         // Room
         public const string RoomJoin = "Join";
         public const string RoomExit = "Exit";
@@ -77,14 +78,16 @@ namespace DungeonShooter
         Room,
         Spawn,
         Character,
-        Game
+        Game,
+        Weapon
     }
     public enum AnimationType
     {
         Idle,
         Move,
         Back,
-        Jump
+        Jump,
+        Attack
     }
     public class WebSocketRequest
     {
@@ -99,9 +102,16 @@ namespace DungeonShooter
     public class CharacterPacket
     {
         public string id;
+        public int hp;
         public Vector3 position;
         public Quaternion rotation;
         public AnimationType animation;
+    }
+    public class WeaponPacket
+    {
+        public string playerID;
+        public Vector3 startPos;
+        public Vector3 direction;
     }
     #endregion
 }

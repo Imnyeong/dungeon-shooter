@@ -76,7 +76,17 @@ namespace DungeonShooter
             if (player == null)
                 return;
 
-            player.DoSync(info.position, info.rotation, info.animation);
+            player.DoSync(info.hp, info.position, info.rotation, info.animation);
+        }
+        public void SyncWeapon(string _data)
+        {
+            WeaponPacket info = JsonConvert.DeserializeObject<WeaponPacket>(_data);
+            Character player = players.Find(x => x.id == info.playerID);
+
+            if (player == null)
+                return;
+
+            player.shootController.DoShoot(info.playerID, info.startPos, info.direction);
         }
     }
 }

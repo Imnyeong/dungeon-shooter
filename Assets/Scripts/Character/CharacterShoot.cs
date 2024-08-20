@@ -8,18 +8,13 @@ namespace DungeonShooter
     {
         private Character player;
         private const float camHeight = 2.0f;
-        Vector3 dir;
 
         private void Start()
         {
             player = GetComponent<Character>();
             SetCursor();
         }
-        private void Update()
-        {
-            if (player.followCam != null)
-                SetDirection();
-        }
+
         public void SetCursor()
         {
             if (player.id == GameManager.instance.currentPlayer)
@@ -28,19 +23,36 @@ namespace DungeonShooter
                 Cursor.visible = false;
             }
         }
-        public void SetDirection()
-        {
-            dir = player.followCam.transform.forward;
-        }
-        public void DoShoot()
-        {
-            Vector3 startPos = new Vector3(player.gameObject.transform.position.x, player.gameObject.transform.position.y + camHeight, player.gameObject.transform.position.z);
-            Vector3 direction = dir.normalized;
 
-            Transform weapon = GameManager.instance.objectPool.GetWeapon(player.weaponId).transform;
+        public void OnClickAttack()
+        {
+            DoShoot(player.id, player.transform.position, player.followCam.transform.forward);
+            SendPacket();
+        }
+        private void SendPacket()
+        {
+            WeaponPacket packet = new WeaponPacket()
+            {
+                playerID = player.id,
+                startPos = player.transform.position,
+                direction = player.followCam.transform.forward
+            };
+            WebSocketRequest request = new WebSocketRequest()
+            {
+                packetType = PacketType.Weapon,
+                data = JsonUtility.ToJson(packet)
+            };
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+        }
+        public void DoShoot(string _id, Vector3 _startPos, Vector3 _dir)
+        {
+            Vector3 startPos = new Vector3(_startPos.x, _startPos.y + camHeight, _startPos.z);
+            Vector3 direction = _dir.normalized;
+
+            Transform weapon = GameManager.instance.objectPool.GetWeapon(0).transform;
             weapon.position = startPos;
             weapon.rotation = Quaternion.FromToRotation(Vector3.up, direction);
-            weapon.GetComponent<Weapon>().Shoot(direction);
+            weapon.GetComponent<Weapon>().Shoot(_id, direction);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace DungeonShooter
                 player.followCam.ChangeView();
 
             if (Input.GetMouseButtonDown(0) && canShoot)
-                player.shootController.DoShoot();
+                player.shootController.OnClickAttack();
 
             if (Input.GetButtonDown("Jump") && isGround)
                 isJump = true;
