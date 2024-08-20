@@ -9,10 +9,10 @@ namespace DungeonShooter
         public Rigidbody rigid;
 
         public string id;
-        public int hp;
+        public int hp { get; private set; }
         public int weaponId;
 
-        private const int maxHp = 100;
+        public int maxHp { get; private set; } = 100;
         public bool isLive { get; private set; } = true;
 
         [HideInInspector] public CharacterInput inputController;

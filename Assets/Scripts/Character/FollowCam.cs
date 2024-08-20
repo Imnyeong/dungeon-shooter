@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DungeonShooter
 {
     public class FollowCam : MonoBehaviour
     {
-        public Transform player;
-        public Canvas aim;
+        [HideInInspector] public Character player;
+        [HideInInspector] public Transform playerTran;
+        public FollowUI ui;
 
         public float mouseX;
         public float mouseY;
@@ -29,16 +31,21 @@ namespace DungeonShooter
 
         public void SetTarget(string _id)
         {
-            player = GameManager.instance.players.Find(x => x.id == _id).gameObject.transform;
-            player.GetComponent<Character>().followCam = this;
+            player = GameManager.instance.players.Find(x => x.id == _id);
+            playerTran = player.gameObject.transform;
+            player.followCam = this;
 
             camDistance = distanceThree;
             camHeight = heightThree;
-            aim.gameObject.SetActive(false);
+            ui.ActiveAim(false);
+        }
+        private void Start()
+        {
+            SetPlayerUI();
         }
         private void FixedUpdate()
         {
-            if (!player.GetComponent<Character>().isLive)
+            if (!playerTran.GetComponent<Character>().isLive)
                 return;
 
             GetAxisValues();
@@ -46,6 +53,10 @@ namespace DungeonShooter
         private void LateUpdate()
         {
             MoveCamera();
+        }
+        public void SetPlayerUI()
+        {
+            ui.player = player;
         }
         private void GetAxisValues()
         {
@@ -56,34 +67,35 @@ namespace DungeonShooter
         private void MoveCamera()
         {
             transform.eulerAngles = new Vector3(mouseY, mouseX, transform.rotation.z);
-            player.localRotation = Quaternion.Euler(0, mouseX, 0);
+            playerTran.localRotation = Quaternion.Euler(0, mouseX, 0);
 
-            Vector3 rayDirection = (transform.position - player.position).normalized;
+            Vector3 rayDirection = (transform.position - playerTran.position).normalized;
             
-            if (Physics.Raycast(player.position, rayDirection, out RaycastHit hit, float.MaxValue, wall))
+            if (Physics.Raycast(playerTran.position, rayDirection, out RaycastHit hit, float.MaxValue, wall))
             {
-                float distance = Mathf.Min(Vector3.Distance(player.position, hit.point), camDistance);
-                transform.position = new Vector3(player.position.x, player.position.y + camHeight, player.position.z) - transform.forward * distance;
+                float distance = Mathf.Min(Vector3.Distance(playerTran.position, hit.point), camDistance);
+                transform.position = new Vector3(playerTran.position.x, playerTran.position.y + camHeight, playerTran.position.z) - transform.forward * distance;
             }
             else
             {
-                transform.position = new Vector3(player.position.x, player.position.y + camHeight, player.position.z) - transform.forward * camDistance;
+                transform.position = new Vector3(playerTran.position.x, playerTran.position.y + camHeight, playerTran.position.z) - transform.forward * camDistance;
             }
         }
         public void ChangeView()
         {
-            if(camDistance == distanceThree)
+            if (camDistance == distanceThree)
             {
                 camDistance = distanceOne;
                 camHeight = heightOne;
-                aim.gameObject.SetActive(true);
+                ui.ActiveAim(true);
             }
             else
             {
                 camDistance = distanceThree;
                 camHeight = heightThree;
-                aim.gameObject.SetActive(false);
+                ui.ActiveAim(false);
             }
         }
+
     }
 }

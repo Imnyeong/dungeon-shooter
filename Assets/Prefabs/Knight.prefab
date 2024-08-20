@@ -1561,7 +1561,7 @@ MonoBehaviour:
   weaponId: 0
   inputController: {fileID: 0}
   animController: {fileID: 0}
-  shootController: {fileID: 0}
+  attackController: {fileID: 0}
   followCam: {fileID: 0}
 --- !u!1 &5633512716819005062
 GameObject:
