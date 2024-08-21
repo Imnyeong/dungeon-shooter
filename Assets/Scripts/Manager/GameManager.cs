@@ -59,10 +59,11 @@ namespace DungeonShooter
         }
         public void SpawnCharacter(int _index)
         {
-            GameObject character = Instantiate(characterPrefab, map.transform);
+            GameObject character = Instantiate(characterPrefab);
+            character.transform.SetParent(map.transform);
+            character.transform.position = spawnPoint[_index].position;
+
             Character player = character.GetComponent<Character>();
-            player.transform.position = spawnPoint[_index].position;
-            
             player.SetInfo(users[_index]);
             players.Add(player);
 

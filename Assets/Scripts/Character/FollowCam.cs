@@ -69,16 +69,17 @@ namespace DungeonShooter
             transform.eulerAngles = new Vector3(mouseY, mouseX, transform.rotation.z);
             playerTran.localRotation = Quaternion.Euler(0, mouseX, 0);
 
+            Vector3 startPos = new Vector3(playerTran.position.x, playerTran.position.y + camHeight, playerTran.position.z);
             Vector3 rayDirection = (transform.position - playerTran.position).normalized;
-            
-            if (Physics.Raycast(playerTran.position, rayDirection, out RaycastHit hit, float.MaxValue, wall))
+
+            if (Physics.Raycast(startPos, rayDirection, out RaycastHit wallHit, camDistance, wall))
             {
-                float distance = Mathf.Min(Vector3.Distance(playerTran.position, hit.point), camDistance);
-                transform.position = new Vector3(playerTran.position.x, playerTran.position.y + camHeight, playerTran.position.z) - transform.forward * distance;
+                float distance = Mathf.Min(Vector3.Distance(startPos, wallHit.point), camDistance);
+                transform.position = startPos - transform.forward * distance;
             }
             else
             {
-                transform.position = new Vector3(playerTran.position.x, playerTran.position.y + camHeight, playerTran.position.z) - transform.forward * camDistance;
+                transform.position = startPos - transform.forward * camDistance;
             }
         }
         public void ChangeView()
