@@ -24,20 +24,23 @@ namespace DungeonShooter
             data = _data;
             
             textName.text = _data.RoomName;
-            textCanJoin.text = _data.CanJoin == 1 ? StringData.RoomCanJoin : StringData.RoomCantJoin;
+            textCanJoin.text = Convert.ToBoolean(_data.CanJoin) ? StringData.RoomCanJoin : StringData.RoomCantJoin;
             textCount.text = $"{JsonConvert.DeserializeObject<UserData[]>(_data.Players).Length} 명";
 
             btnJoin.onClick.RemoveAllListeners();
             btnJoin.interactable = Convert.ToBoolean(_data.CanJoin);
-            btnJoin.onClick.AddListener(delegate
+            btnJoin.onClick.AddListener(CheckRoom);
+        }
+        public void CheckRoom()
+        {
+            WebRequestManager.instance.GetRoomInfo(data.RoomID, (response) =>
             {
-                WebRequestManager.instance.GetRoomInfo(data.RoomID, (response) =>
-                {
-                    if (Convert.ToBoolean(data.CanJoin))
-                        Join();
-                    else
-                        return;
-                });
+                RoomData currentRoom = JsonConvert.DeserializeObject<RoomData>(response.message);
+
+                if (Convert.ToBoolean(currentRoom.CanJoin))
+                    Join();
+                else
+                    LobbyCanvas.instance.FindViewModel(ViewModelType.Lobby).GetComponent<LobbyViewModel>().GetRoomList();
             });
         }
 
