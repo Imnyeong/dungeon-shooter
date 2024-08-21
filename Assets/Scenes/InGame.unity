@@ -26383,10 +26383,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa7b646e7eaef94fac9ce9f56466e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 5578227256160490785, guid: 379ef9a4d6b70ca458b11665778b6502, type: 3}
+  characterPrefab: {fileID: 8420496470917252971, guid: a4e634df38ec07148ba77223c4bdc8b6, type: 3}
   cameraPrefab: {fileID: 2339627990773436519, guid: afe2990c52a876a4d9897c8e8efb1fed, type: 3}
   map: {fileID: 495451979}
-  currentPlayer: 0
+  currentID: 
+  currentPlayer: {fileID: 0}
   currentRoom:
     RoomID: 0
     RoomName: 
@@ -42352,7 +42353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPrefabs:
-  - {fileID: 7471156471714628005, guid: 7be16424e528700429e142baf3ca3d49, type: 3}
+  - {fileID: 6529222860195552660, guid: 7d994ae9a848663468602639c28920c6, type: 3}
 --- !u!1 &1041223464
 GameObject:
   m_ObjectHideFlags: 0

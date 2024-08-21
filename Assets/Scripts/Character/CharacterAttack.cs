@@ -51,7 +51,7 @@ namespace DungeonShooter
 
             Transform weapon = GameManager.instance.objectPool.GetWeapon(0).transform;
             weapon.position = startPos;
-            weapon.rotation = Quaternion.FromToRotation(Vector3.up, direction);
+            weapon.rotation = Quaternion.FromToRotation(Vector3.down, direction);
             weapon.GetComponent<Weapon>().Shoot(_id, direction);
         }
     }
