@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace DungeonShooter
@@ -19,6 +20,7 @@ namespace DungeonShooter
 
         public bool canAttack = true;
 
+        private const float attackDelay = 1.0f;
         private void Start()
         {
             player = GetComponent<Character>();
@@ -36,10 +38,6 @@ namespace DungeonShooter
         {
             isGround = true;
         }
-        public void CanAttack()
-        {
-            canAttack = true;
-        }
         private void GetInputValues()
         {
             moveX = Input.GetAxisRaw("Horizontal");
@@ -56,15 +54,24 @@ namespace DungeonShooter
         }
         private void Move()
         {
-            if (moveZ > 0)
+            if(moveX == 0 && moveZ == 0)
+                player.animController.DoAnimation(AnimationType.Idle);
+            else if (moveZ > 0)
+            {
+                player.animController.DoAnimation(AnimationType.Move);
                 player.transform.Translate(new Vector3(moveX * Time.fixedDeltaTime * frontSpeed, 0, moveZ * Time.fixedDeltaTime * frontSpeed));
-            else
+            }
+            else if (moveZ <= 0)
+            {
+                player.animController.DoAnimation(AnimationType.Back);
                 player.transform.Translate(new Vector3(moveX * Time.fixedDeltaTime * backSpeed, 0, moveZ * Time.fixedDeltaTime * backSpeed));
+            }
         }
         private void Jump()
         {
             if (isJump && isGround)
             {
+                player.animController.DoAnimation(AnimationType.Jump);
                 player.rigid.AddForce(0, jumpPower, 0, ForceMode.Impulse);
                 isJump = false;
                 isGround = false;
@@ -74,6 +81,12 @@ namespace DungeonShooter
         {
             canAttack = false;
             player.attackController.DoAttack();
+            StartCoroutine(AttackCoroutine());
+        }
+        private IEnumerator AttackCoroutine()
+        {
+            yield return new WaitForSecondsRealtime(attackDelay);
+            canAttack = true;
         }
     }
 }

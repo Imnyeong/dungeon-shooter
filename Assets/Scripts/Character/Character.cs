@@ -39,11 +39,6 @@ namespace DungeonShooter
                 inputController.InGround();
             }
         }
-        public void CanAttack()
-        {
-            if(inputController != null)
-                inputController.CanAttack();
-        }
         public void HitWeapon(Weapon _weapon)
         {
             if (inputController != null && _weapon.playerID != id)
@@ -53,6 +48,7 @@ namespace DungeonShooter
                 if (hp <= 0)
                 {
                     Death();
+                    animController.DoAnimation(AnimationType.Death);
                     GameManager.instance.CheckGame();
                 }
             }

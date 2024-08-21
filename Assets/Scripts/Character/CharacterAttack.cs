@@ -25,7 +25,8 @@ namespace DungeonShooter
         }
 
         public void DoAttack()
-        {            
+        {
+            player.animController.DoAnimation(AnimationType.Attack);
             SyncAttack(player.id, player.transform.position, player.followCam.transform.forward);
             SendPacket();
         }
