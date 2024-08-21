@@ -10,6 +10,10 @@ namespace DungeonShooter
         public GameObject blockPanel;
         public ViewModel[] viewModels;
         public Popup[] popups;
+        public RectTransform background;
+
+        private const float small = 580;
+        private const float large = 700;
 
         private void Awake()
         {
@@ -27,6 +31,9 @@ namespace DungeonShooter
             foreach(ViewModel view in viewModels)
             {
                 view.gameObject.SetActive(view.type == _type);
+                
+                background.sizeDelta = new Vector2(background.sizeDelta.x,
+                    _type == ViewModelType.Login ? small : large);
             }
         }
         public void ShowPopup(PopupType _type)

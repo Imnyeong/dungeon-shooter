@@ -109,6 +109,7 @@ namespace DungeonShooter
             {
                 RoomID = data.RoomID,
                 RoomName = data.RoomName,
+                CanJoin = data.CanJoin,
                 MasterID = data.MasterID,
                 Players = JsonConvert.SerializeObject(players.ToArray())
             };

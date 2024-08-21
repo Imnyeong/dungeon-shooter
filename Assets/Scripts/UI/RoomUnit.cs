@@ -10,6 +10,7 @@ namespace DungeonShooter
     public class RoomUnit : MonoBehaviour
     {
         [SerializeField] private Text textName;
+        [SerializeField] private Text textCanJoin;
         [SerializeField] private Text textCount;
         [SerializeField] private Button btnJoin;
 
@@ -21,12 +22,13 @@ namespace DungeonShooter
                 return;
 
             data = _data;
-            gameObject.SetActive(Convert.ToBoolean(_data.CanJoin));
             
             textName.text = _data.RoomName;
+            textCanJoin.text = _data.CanJoin == 1 ? StringData.RoomCanJoin : StringData.RoomCantJoin;
             textCount.text = $"{JsonConvert.DeserializeObject<UserData[]>(_data.Players).Length} 명";
 
             btnJoin.onClick.RemoveAllListeners();
+            btnJoin.interactable = Convert.ToBoolean(_data.CanJoin);
             btnJoin.onClick.AddListener(delegate
             {
                 WebRequestManager.instance.GetRoomInfo(data.RoomID, (response) =>
@@ -48,6 +50,7 @@ namespace DungeonShooter
             {
                 RoomID = data.RoomID,
                 RoomName = data.RoomName,
+                CanJoin = data.CanJoin,
                 MasterID = data.MasterID,
                 Players = JsonConvert.SerializeObject(members.ToArray())
             };

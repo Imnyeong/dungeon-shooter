@@ -13,6 +13,8 @@ namespace DungeonShooter
         [SerializeField] private Button btnRefresh;
         [SerializeField] private Button btnCreate;
 
+        [SerializeField] private Text textEmpty;
+
         private void Start()
         {
             btnRefresh.onClick.AddListener(delegate
@@ -38,10 +40,14 @@ namespace DungeonShooter
                 return;
 
             RoomData[] dataList = JsonConvert.DeserializeObject<RoomData[]>(_response.message);
+
             for (int i = 0; i < roomList.content.childCount; i++)
             {
                 Destroy(roomList.content.GetChild(i).gameObject);
             }
+
+            textEmpty.gameObject.SetActive(dataList == null || dataList.Length == 0);
+
             for (int i = 0; i < dataList.Length; i++)
             {
                 GameObject unit = Instantiate(roomUnit, roomList.content);

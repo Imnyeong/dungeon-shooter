@@ -33,6 +33,8 @@ namespace DungeonShooter
         public const string RoomJoin = "Join";
         public const string RoomExit = "Exit";
         public const string RoomDelete = "Delete";
+        public const string RoomCanJoin = "대기 중";
+        public const string RoomCantJoin = "플레이 중";
         // Game
         public const string GameStart = "Start";
         // Tag
