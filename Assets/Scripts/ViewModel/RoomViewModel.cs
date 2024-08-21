@@ -27,6 +27,7 @@ namespace DungeonShooter
         {
             btnEixt.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 if (data.MasterID == LocalDataBase.instance.loginData.ID)
                     DeleteRoom();
                 else
@@ -34,6 +35,7 @@ namespace DungeonShooter
             });
             btnStart.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 StartGame();
             });
         }

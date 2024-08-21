@@ -15,8 +15,13 @@ namespace DungeonShooter
 
         private void Start()
         {
+            inputID.onValueChanged.AddListener(delegate { AudioManager.instance.PlayClip(StringData.ClipTyping); });
+            inputNickname.onValueChanged.AddListener(delegate { AudioManager.instance.PlayClip(StringData.ClipTyping); });
+            inputPW.onValueChanged.AddListener(delegate { AudioManager.instance.PlayClip(StringData.ClipTyping); });
+
             btnRegister.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 if (inputID.text.Equals(string.Empty) || inputPW.text.Equals(string.Empty) || inputNickname.text.Equals(string.Empty))
                     return;
 
@@ -24,6 +29,7 @@ namespace DungeonShooter
             });
             btnCancel.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 ClearData();
                 LobbyCanvas.instance.ChangeView(ViewModelType.Login);
             });

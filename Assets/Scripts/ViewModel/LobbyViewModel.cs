@@ -19,10 +19,12 @@ namespace DungeonShooter
         {
             btnRefresh.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 GetRoomList();
             });
             btnCreate.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 LobbyCanvas.instance.ShowPopup(PopupType.CreateRoom);
             });
         }

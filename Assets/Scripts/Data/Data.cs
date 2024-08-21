@@ -45,6 +45,11 @@ namespace DungeonShooter
         public const string TagPlayer = "Player";
         public const string TagWeapon = "Weapon";
         public const string TagManagers = "Managers";
+        // Audio
+        public const string ClipTyping = "Typing";
+        public const string ClipClick = "Click";
+        public const string ClipAttack = "Attack";
+        public const string ClipHit = "Hit";
     }
     #endregion
     #region WebRequestPacket

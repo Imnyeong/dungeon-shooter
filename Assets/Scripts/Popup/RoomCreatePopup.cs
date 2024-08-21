@@ -18,12 +18,16 @@ namespace DungeonShooter
 
         private void Start()
         {
+            inputRoomName.onValueChanged.AddListener(delegate { AudioManager.instance.PlayClip(StringData.ClipTyping); });
+
             btnCreate.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 CreateRoom();
             });
             btnCancel.onClick.AddListener(delegate
             {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 ClearData();
                 LobbyCanvas.instance.HidePopup(PopupType.CreateRoom);
             });
