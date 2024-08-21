@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace DungeonShooter
 {
@@ -50,6 +51,29 @@ namespace DungeonShooter
             {
                 SpawnCharacter(i);
             }
+        }
+        public void CheckGame()
+        {
+            int liveCount = players.FindAll(player => player.hp != 0).Count();
+
+            if(liveCount <= 1)
+            {
+                FinishGame();
+            }
+        }
+        public void FinishGame()
+        {
+            WebSocketRequest request = new WebSocketRequest()
+            {
+                packetType = PacketType.Game,
+                data = StringData.GameOver
+            };
+            WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
+            GameOver();
+        }
+        public void GameOver()
+        {
+            currentPlayer.followCam.ui.ShowGameOver();
         }
         public void SetCamera()
         {

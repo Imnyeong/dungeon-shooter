@@ -37,10 +37,14 @@ namespace DungeonShooter
         public const string RoomCantJoin = "플레이 중";
         // Game
         public const string GameStart = "Start";
+        public const string GameOver = "Over";
+        public const string GameWin= "Win!";
+        public const string GameLose = "Lose...";
         // Tag
         public const string TagMap = "Map";
         public const string TagPlayer = "Player";
         public const string TagWeapon = "Weapon";
+        public const string TagManagers = "Managers";
     }
     #endregion
     #region WebRequestPacket

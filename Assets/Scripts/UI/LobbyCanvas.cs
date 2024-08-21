@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DungeonShooter
 {
@@ -20,6 +21,17 @@ namespace DungeonShooter
             if (instance == null)
             {
                 instance = this;
+            }
+        }
+        public void CheckRoom()
+        {
+            if (LocalDataBase.instance.currentRoom == default)
+                return;
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                ChangeView(ViewModelType.Room);
             }
         }
         public ViewModel FindViewModel(ViewModelType _type)

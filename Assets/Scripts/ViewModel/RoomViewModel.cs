@@ -39,9 +39,13 @@ namespace DungeonShooter
         }
         private void OnEnable()
         {
-            ConnectRoom();
+            if(!WebSocketManager.instance.isConnect())
+            {
+                ConnectRoom();
+            }
             GetRoomInfo(LocalDataBase.instance.currentRoom);
         }
+
         public void GetRoomInfo(int _id)
         {
             WebRequestManager.instance.GetRoomInfo(_id, (response) => SetRoomInfo(response));

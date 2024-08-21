@@ -37,6 +37,13 @@ namespace DungeonShooter
                 ws.Close();
             }
         }
+        public bool isConnect()
+        {
+            if (ws == null)
+                return false;
+
+            return ws.IsAlive;
+        }
         public void SendPacket(string _message)
         {
             ws.Send(_message);
@@ -92,6 +99,10 @@ namespace DungeonShooter
                                 {
                                     RoomViewModel room = LobbyCanvas.instance.FindViewModel(ViewModelType.Room).GetComponent<RoomViewModel>();
                                     room.LoadInGameScene();
+                                }
+                                else if (response.data.Equals(StringData.GameOver))
+                                {
+                                    GameManager.instance.GameOver();
                                 }
                             });
                             break;

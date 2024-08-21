@@ -53,6 +53,7 @@ namespace DungeonShooter
                 if (hp <= 0)
                 {
                     Death();
+                    GameManager.instance.CheckGame();
                 }
             }
         }

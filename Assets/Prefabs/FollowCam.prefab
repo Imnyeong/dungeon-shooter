@@ -518,9 +518,6 @@ MonoBehaviour:
   wall:
     serializedVersion: 2
     m_Bits: 8
-  roof:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &559532097850809547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +535,9 @@ MonoBehaviour:
   canvasUI: {fileID: 8151067315988713159}
   sliderHP: {fileID: 3896924112581092166}
   textNickname: {fileID: 3605295746490799954}
+  canvasGameOver: {fileID: 6880814638089722650}
+  textGameOver: {fileID: 1222164414194776456}
+  textShadow: {fileID: 7743689973732124734}
 --- !u!1 &2551850664872631130
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +663,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 725, y: 242}
+  m_SizeDelta: {x: 439, y: 242}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2984715662436882031
 CanvasRenderer:
@@ -706,7 +706,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Victory!
+  m_Text: Win !
 --- !u!114 &2317689955709392888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1508,7 +1508,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 725, y: 242}
+  m_SizeDelta: {x: 439, y: 242}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1946933009216853123
 CanvasRenderer:
@@ -1551,7 +1551,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Victory!
+  m_Text: Win !
 --- !u!114 &693902350739447673
 MonoBehaviour:
   m_ObjectHideFlags: 0
