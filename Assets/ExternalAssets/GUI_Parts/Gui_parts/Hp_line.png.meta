@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 054411784c3fdf74d9db120b4a792a71
+guid: 4f8e653bf1c0b054680c13a05741c202
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 75, y: 20, z: 75, w: 20}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -110,22 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IRONY TITLE  Large_0
+      name: Hp_line_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 496
-        height: 107
+        x: 7
+        y: 9
+        width: 1009
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 20, z: 50, w: 20}
+      border: {x: 40, y: 10, z: 40, w: 10}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29eecbb6526aec14ca02dcae47905714
-      internalID: -740548201
+      spriteID: ce058a6781b33d74799abd48e0d5b31a
+      internalID: -225980503
       vertices: []
       indices: 
       edges: []
@@ -133,15 +133,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 85cf612f75e690446babccbf3faef30c
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      IRONY TITLE  Large_0: -740548201
+      Hp_line_0: -225980503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

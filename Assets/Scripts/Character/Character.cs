@@ -21,12 +21,13 @@ namespace DungeonShooter
         [HideInInspector] public CharacterAttack attackController;
         [HideInInspector] public FollowCam followCam;
 
-        [SerializeField] private Canvas canvasHP;
+        [SerializeField] private Canvas canvasInfo;
         [SerializeField] private Slider sliderHP;
+        [SerializeField] private Text textNickname;
 
         private void LateUpdate()
         {
-            if (id != GameManager.instance.currentID)
+            if (id != GameManager.instance.currentUser.ID)
                 return;
 
             SendPacket();
@@ -55,14 +56,16 @@ namespace DungeonShooter
                 }
             }
         }
-        public void SetInfo(string _id)
+        public void SetInfo(UserData _data)
         {
-            id = _id;
+            id = _data.ID;
             hp = maxHp;
-            if (GameManager.instance.currentID == _id)
+            textNickname.text = _data.Nickname;
+
+            if (GameManager.instance.currentUser.ID == id)
             {
                 inputController = gameObject.AddComponent<CharacterInput>();
-                canvasHP.gameObject.SetActive(false);
+                canvasInfo.gameObject.SetActive(false);
             }
             animController = gameObject.AddComponent<CharacterAnimation>();
             attackController = gameObject.AddComponent<CharacterAttack>();

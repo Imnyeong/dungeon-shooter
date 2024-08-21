@@ -13,11 +13,21 @@ namespace DungeonShooter
         public Canvas canvasUI;
 
         [SerializeField] private Slider sliderHP;
+        [SerializeField] private Text textNickname;
+
+        private void Start()
+        {
+            Init();
+        }
         private void LateUpdate()
         {
             if (player == null)
                 return;
             CheckHP();
+        }
+        public void Init()
+        {
+            textNickname.text = GameManager.instance.currentUser.Nickname;
         }
         public void CheckHP()
         {

@@ -117,7 +117,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: 2H_Melee_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -133,7 +133,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3100369314251171874, guid: 63901192ea82fd549b5e5df920d4690b, type: 3}
+  m_Motion: {fileID: -7009279140402340920, guid: 63901192ea82fd549b5e5df920d4690b, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
