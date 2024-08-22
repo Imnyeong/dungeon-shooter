@@ -53,10 +53,16 @@ namespace DungeonShooter
     }
     #endregion
     #region WebRequestPacket
+
     public class WebRequestResponse
     {
         public int code;
         public string message;
+    }
+    public class ResponseMessage
+    {
+        public const string LoginFailed = "Login Failed";
+        public const string RoomListisFull = "RoomList is Full";
     }
     [Serializable]
     public class UserData

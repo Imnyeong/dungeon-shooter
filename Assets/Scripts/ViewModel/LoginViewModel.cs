@@ -28,8 +28,8 @@ namespace DungeonShooter
             });
             btnRegister.onClick.AddListener(delegate
             {
-                AudioManager.instance.PlayClip(StringData.ClipClick);
                 ClearData();
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 LobbyCanvas.instance.ChangeView(ViewModelType.Register);
             });
         }
@@ -49,8 +49,11 @@ namespace DungeonShooter
         }
         public void LoginSuccess(WebRequestResponse _response)
         {
-            if (_response.code == 400)
+            if (_response.message == ResponseMessage.LoginFailed)
+            {
+                Debug.Log("Login Failed");
                 return;
+            }
 
             UserData user = JsonConvert.DeserializeObject<UserData>(_response.message);
 

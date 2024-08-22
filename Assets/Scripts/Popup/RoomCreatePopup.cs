@@ -27,8 +27,8 @@ namespace DungeonShooter
             });
             btnCancel.onClick.AddListener(delegate
             {
-                AudioManager.instance.PlayClip(StringData.ClipClick);
                 ClearData();
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 LobbyCanvas.instance.HidePopup(PopupType.CreateRoom);
             });
         }
@@ -53,6 +53,12 @@ namespace DungeonShooter
             {
                 ClearData();
                 LobbyCanvas.instance.HidePopup(PopupType.CreateRoom);
+
+                if (response.message == ResponseMessage.RoomListisFull)
+                {
+                    Debug.Log("RoomList is Full");
+                    return;
+                }
                 LocalDataBase.instance.currentRoom = Convert.ToInt32(response.message);
                 LobbyCanvas.instance.ChangeView(ViewModelType.Room);
                 // ToDo: room¿¡ Á¢¼Ó

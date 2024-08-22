@@ -29,8 +29,8 @@ namespace DungeonShooter
             });
             btnCancel.onClick.AddListener(delegate
             {
-                AudioManager.instance.PlayClip(StringData.ClipClick);
                 ClearData();
+                AudioManager.instance.PlayClip(StringData.ClipClick);
                 LobbyCanvas.instance.ChangeView(ViewModelType.Login);
             });
         }
