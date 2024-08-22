@@ -9,7 +9,7 @@ namespace DungeonShooter
     {
         [SerializeField] private AudioSource sourceBGM;
         [SerializeField] private AudioSource sourceEffect;
-        [SerializeField] private AudioClip[] clips;
+        public AudioClip[] clips;
 
         public static AudioManager instance;
         private void Awake()

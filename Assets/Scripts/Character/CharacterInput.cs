@@ -63,7 +63,7 @@ namespace DungeonShooter
         {
             if (isJump && isGround)
             {
-                player.animController.DoJump();
+                player.animController.DoAnimation(AnimationType.Jump);
                 player.rigid.AddForce(0, jumpPower, 0, ForceMode.Impulse);
                 isJump = false;
                 isGround = false;

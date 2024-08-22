@@ -19,6 +19,7 @@ namespace DungeonShooter
         [HideInInspector] public CharacterInput inputController;
         [HideInInspector] public CharacterAnimation animController;
         [HideInInspector] public CharacterAttack attackController;
+        [HideInInspector] public CharacterAudio audioController;
         [HideInInspector] public FollowCam followCam;
 
         [SerializeField] private Canvas canvasInfo;
@@ -43,8 +44,11 @@ namespace DungeonShooter
         {
             if (inputController != null && _weapon.playerID != id)
             {
+                audioController.PlayClip(StringData.ClipHit);
+                
                 _weapon.gameObject.SetActive(false);
                 hp -= _weapon.atkDamage;
+
                 if (hp <= 0)
                 {
                     Death();
@@ -66,6 +70,7 @@ namespace DungeonShooter
             }
             animController = gameObject.AddComponent<CharacterAnimation>();
             attackController = gameObject.AddComponent<CharacterAttack>();
+            audioController = gameObject.AddComponent<CharacterAudio>();
         }
         public void Death()
         {

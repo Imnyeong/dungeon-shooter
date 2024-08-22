@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace DungeonShooter
 {
+    [RequireComponent(typeof(Character))]
     public class CharacterAttack : MonoBehaviour
     {
         private Character player;
@@ -26,7 +27,6 @@ namespace DungeonShooter
 
         public void DoAttack()
         {
-            player.animController.DoAttack();
             SyncAttack(player.id, player.transform.position, player.followCam.transform.forward);
             SendPacket();
         }
@@ -54,6 +54,8 @@ namespace DungeonShooter
             weapon.position = startPos;
             weapon.rotation = Quaternion.FromToRotation(Vector3.down, direction);
             weapon.GetComponent<Weapon>().Shoot(_id, direction);
+
+            player.animController.DoAnimation(AnimationType.Attack);
         }
     }
 }

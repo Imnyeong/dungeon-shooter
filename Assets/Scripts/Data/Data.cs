@@ -46,8 +46,9 @@ namespace DungeonShooter
         public const string TagWeapon = "Weapon";
         public const string TagManagers = "Managers";
         // Audio
-        public const string ClipTyping = "Typing";
         public const string ClipClick = "Click";
+        public const string ClipTyping = "Typing";
+        public const string ClipJump = "Jump";
         public const string ClipAttack = "Attack";
         public const string ClipHit = "Hit";
     }
@@ -97,7 +98,8 @@ namespace DungeonShooter
         Spawn,
         Character,
         Game,
-        Weapon
+        Weapon,
+        Audio
     }
     public enum AnimationType
     {
@@ -131,6 +133,11 @@ namespace DungeonShooter
         public string playerID;
         public Vector3 startPos;
         public Vector3 direction;
+    }
+    public class AudioPacket
+    {
+        public string playerID;
+        public string clipName;
     }
     #endregion
 }

@@ -112,6 +112,11 @@ namespace DungeonShooter
                             actions.Enqueue(() => GameManager.instance.SyncWeapon(response.data));
                             break;
                         }
+                    case PacketType.Audio:
+                        {
+                            actions.Enqueue(() => GameManager.instance.SyncAudio(response.data));
+                            break;
+                        }
                 }
                 //actions.Enqueue(() => GameManager.instance.SpawnCharacter(0));
             };

@@ -37,16 +37,6 @@ namespace DungeonShooter
                 DoAnimation(AnimationType.Back);
         }
 
-        public void DoJump()
-        {
-            DoAnimation(AnimationType.Jump);
-        }
-
-        public void DoAttack()
-        {
-            DoAnimation(AnimationType.Attack);
-        }
-
         public void DoAnimation(AnimationType _type)
         {
             if (animationType == _type)
@@ -75,11 +65,13 @@ namespace DungeonShooter
                 case AnimationType.Jump:
                     {
                         animator.SetTrigger(StringData.AnimationJump);
+                        player.audioController.PlayClip(StringData.ClipJump);
                         break;
                     }
                 case AnimationType.Attack:
                     {
                         animator.SetTrigger(StringData.AnimationAttack);
+                        player.audioController.PlayClip(StringData.ClipAttack);
                         break;
                     }
                 case AnimationType.Death:

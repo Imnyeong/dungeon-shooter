@@ -117,5 +117,15 @@ namespace DungeonShooter
 
             player.attackController.SyncAttack(info.playerID, info.startPos, info.direction);
         }
+        public void SyncAudio(string _data)
+        {
+            AudioPacket info = JsonConvert.DeserializeObject<AudioPacket>(_data);
+            Character player = players.Find(x => x.id == info.playerID);
+
+            if (player == null || player.id == LocalDataBase.instance.loginData.ID)
+                return;
+
+            player.audioController.SyncAudio(info.clipName);
+        }
     }
 }

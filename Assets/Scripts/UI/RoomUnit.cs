@@ -33,6 +33,7 @@ namespace DungeonShooter
         }
         public void CheckRoom()
         {
+            AudioManager.instance.PlayClip(StringData.ClipClick);
             WebRequestManager.instance.GetRoomInfo(data.RoomID, (response) =>
             {
                 RoomData currentRoom = JsonConvert.DeserializeObject<RoomData>(response.message);
