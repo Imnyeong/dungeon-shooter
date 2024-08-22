@@ -7,7 +7,8 @@ namespace DungeonShooter
 {
     public class AudioManager : MonoBehaviour
     {
-        [SerializeField] private AudioSource source;
+        [SerializeField] private AudioSource sourceBGM;
+        [SerializeField] private AudioSource sourceEffect;
         [SerializeField] private AudioClip[] clips;
 
         public static AudioManager instance;
@@ -18,13 +19,21 @@ namespace DungeonShooter
                 instance = this;
             }
         }
+        private void Start()
+        {
+            PlayBGM();
+        }
+        public void PlayBGM()
+        {
+            sourceBGM.Play();
+        }
         public void PlayClip(string _clipname)
         {
-            if (source.isPlaying)
-                source.Stop();
+            if (sourceEffect.isPlaying)
+                sourceEffect.Stop();
 
-            source.clip = Array.Find(clips, x => x.name == _clipname);
-            source.Play();
+            sourceEffect.clip = Array.Find(clips, x => x.name == _clipname);
+            sourceEffect.Play();
         }
     }
 }

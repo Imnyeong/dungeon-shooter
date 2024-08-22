@@ -7,9 +7,10 @@ namespace DungeonShooter
     public class RotateObject : MonoBehaviour
     {
         private float yRotate = 0.0f;
+        private float rotateSpeed = 3.0f;
         void FixedUpdate()
         {
-            yRotate += Time.fixedDeltaTime * 1.0f;
+            yRotate += Time.fixedDeltaTime * rotateSpeed;
             if (yRotate >= 360.0f)
             {
                 yRotate = 0.0f;
