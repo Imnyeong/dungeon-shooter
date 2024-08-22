@@ -9,7 +9,7 @@ var con = db.init();
 var userTable = 'Users';
 var roomTable = 'Rooms';
 
-let maxRoomCount = 10;
+let maxRoomCount = 11;
 
 module.exports = 
 {
@@ -116,7 +116,7 @@ module.exports =
             if(error)
                 throw error;
 
-            for(let index = 0 ; index < maxRoomCount; index++)
+            for(let index = 1 ; index < maxRoomCount; index++)
             {
                 var find = results.find(x => x.RoomID == index);
                 
