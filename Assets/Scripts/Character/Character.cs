@@ -44,8 +44,8 @@ namespace DungeonShooter
         {
             if (inputController != null && _weapon.playerID != id)
             {
-                audioController.PlayClip(StringData.ClipHit);
-                
+                animController.DoAnimation(AnimationType.Hit);
+
                 _weapon.gameObject.SetActive(false);
                 hp -= _weapon.atkDamage;
 

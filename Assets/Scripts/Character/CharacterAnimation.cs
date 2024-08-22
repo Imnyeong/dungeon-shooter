@@ -74,6 +74,12 @@ namespace DungeonShooter
                         player.audioController.PlayClip(StringData.ClipAttack);
                         break;
                     }
+                case AnimationType.Hit:
+                    {
+                        animator.SetTrigger(StringData.AnimationHit);
+                        player.audioController.PlayClip(StringData.ClipHit);
+                        break;
+                    }
                 case AnimationType.Death:
                     {
                         animator.SetTrigger(StringData.AnimationDeath);
