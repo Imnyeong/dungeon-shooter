@@ -17,6 +17,36 @@ namespace DungeonShooter
             animator = GetComponent<Animator>();
             player = GetComponent<Character>();
         }
+
+        private void FixedUpdate()
+        {
+            if(player.inputController != null)
+                CheckAnimation();
+        }
+
+        public void CheckAnimation()
+        {
+            if (!player.isLive)
+                return;
+
+            if (player.inputController.moveX == 0 && player.inputController.moveZ == 0)
+                DoAnimation(AnimationType.Idle);
+            else if (player.inputController.moveZ > 0)
+                DoAnimation(AnimationType.Move);
+            else if (player.inputController.moveZ <= 0)
+                DoAnimation(AnimationType.Back);
+        }
+
+        public void DoJump()
+        {
+            DoAnimation(AnimationType.Jump);
+        }
+
+        public void DoAttack()
+        {
+            DoAnimation(AnimationType.Attack);
+        }
+
         public void DoAnimation(AnimationType _type)
         {
             if (animationType == _type)

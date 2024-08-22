@@ -54,24 +54,16 @@ namespace DungeonShooter
         }
         private void Move()
         {
-            if(moveX == 0 && moveZ == 0)
-                player.animController.DoAnimation(AnimationType.Idle);
-            else if (moveZ > 0)
-            {
-                player.animController.DoAnimation(AnimationType.Move);
+            if (moveZ > 0)
                 player.transform.Translate(new Vector3(moveX * Time.fixedDeltaTime * frontSpeed, 0, moveZ * Time.fixedDeltaTime * frontSpeed));
-            }
-            else if (moveZ <= 0)
-            {
-                player.animController.DoAnimation(AnimationType.Back);
+            else
                 player.transform.Translate(new Vector3(moveX * Time.fixedDeltaTime * backSpeed, 0, moveZ * Time.fixedDeltaTime * backSpeed));
-            }
         }
         private void Jump()
         {
             if (isJump && isGround)
             {
-                player.animController.DoAnimation(AnimationType.Jump);
+                player.animController.DoJump();
                 player.rigid.AddForce(0, jumpPower, 0, ForceMode.Impulse);
                 isJump = false;
                 isGround = false;
