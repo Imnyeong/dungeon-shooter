@@ -10,22 +10,22 @@ namespace DungeonShooter
         [SerializeField] private ScrollRect roomList;
         [SerializeField] private GameObject roomUnit;
 
-        [SerializeField] private Button btnRefresh;
         [SerializeField] private Button btnCreate;
+        [SerializeField] private Button btnRefresh;
 
         [SerializeField] private Text textEmpty;
 
         private void Start()
         {
-            btnRefresh.onClick.AddListener(delegate
-            {
-                AudioManager.instance.PlayClip(StringData.ClipClick);
-                GetRoomList();
-            });
             btnCreate.onClick.AddListener(delegate
             {
                 AudioManager.instance.PlayClip(StringData.ClipClick);
                 LobbyCanvas.instance.ShowPopup(PopupType.CreateRoom);
+            });
+            btnRefresh.onClick.AddListener(delegate
+            {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
+                GetRoomList();
             });
         }
         private void OnEnable()

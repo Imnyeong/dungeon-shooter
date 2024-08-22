@@ -18,13 +18,18 @@ namespace DungeonShooter
         [SerializeField] private ScrollRect memberList;
         [SerializeField] private GameObject memberUnit;
 
-        [SerializeField] private Button btnEixt;
         [SerializeField] private Button btnStart;
+        [SerializeField] private Button btnEixt;
 
         private RoomData data = null;
 
         private void Start()
         {
+            btnStart.onClick.AddListener(delegate
+            {
+                AudioManager.instance.PlayClip(StringData.ClipClick);
+                StartGame();
+            });
             btnEixt.onClick.AddListener(delegate
             {
                 AudioManager.instance.PlayClip(StringData.ClipClick);
@@ -32,11 +37,6 @@ namespace DungeonShooter
                     DeleteRoom();
                 else
                     ExitRoom();
-            });
-            btnStart.onClick.AddListener(delegate
-            {
-                AudioManager.instance.PlayClip(StringData.ClipClick);
-                StartGame();
             });
         }
         private void OnEnable()
