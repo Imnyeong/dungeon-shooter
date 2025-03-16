@@ -19,7 +19,7 @@ Node.js로 WebSocket 통신과 RESTful API를 구현한 멀티플레이 Unity 3D
 - RESTful API로 유저 데이터를 DB에 저장
 - ObjectPooling 으로 무분별한 Instantiate 방지
 
-## Script로 보는 핵심 기능
+## Script로 보는 핵심 기능 📰
 
 ### ObjectPooling
 ```ruby
@@ -51,6 +51,7 @@ public GameObject GetWeapon(int _key)
     return result;
 }
 ```
+
 ObjectPool에서 최초에 Prefab들의 정보를 key로 구분하여 가지고있고 필요한 Object를 key로 호출, 이전에 생성된 Object가 남는 경우엔 그 Object를 return하고 개수가 부족할 경우에만 새로 Instantiate하여 return
 
 ### RESTful API
@@ -150,7 +151,7 @@ wss.on('connection', (ws, req) =>
 
 Client에서는 플레이어가 움직일 때 위치 정보, Animation 정보를 Packet으로 만들어서 WebSocket서버로 전송하고 Server 측에선 열린 Socket 내에서 같은 방에 소속된 다른 플레이어들에게 Pakcet을 전송합니다.
 
-## Sample Image
+## Sample Image 🎮
 
 <img src="https://github.com/user-attachments/assets/e50e4981-c8a8-4c6e-aa51-74134c11cb10" width="480" height="270"/>  
 <img src="https://github.com/user-attachments/assets/0808653b-9cf2-4dc4-bf34-6ee785b6ff44" width="480" height="270"/>
