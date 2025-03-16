@@ -120,7 +120,7 @@ WebSocketRequest request = new WebSocketRequest()
 WebSocketManager.instance.SendPacket(JsonUtility.ToJson(request));
 ```
 **Server**
-```
+```ruby
 wss.on('connection', (ws, req) =>
 {
     if(req.url.startsWith(''))
